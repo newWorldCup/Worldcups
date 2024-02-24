@@ -1,3 +1,4 @@
+import Header from 'components/Header';
 import Detail from 'pages/Detail';
 import Login from 'pages/Login';
 import Main from 'pages/Main';
@@ -13,6 +14,7 @@ function Router() {
         <Route path="/detail" element={<Detail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path="/header" element={<Header />} />
       </Routes>
     </BrowserRouter>
   );
