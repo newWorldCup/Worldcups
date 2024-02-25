@@ -12,7 +12,7 @@ export const HeaderStyle = styled.div`
 export const HeaderContainer = styled.div`
   top: 0;
   width: 100%;
-  padding: 20px 10px;
+  padding: 20px 10px 0px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +21,6 @@ export const HeaderContainer = styled.div`
 export const LogoImg = styled.img`
   transition: all 0.3s ease-in-out;
   padding: 30px;
-  margin-left: 10px;
   max-width: 100%;
 `;
 
@@ -48,4 +47,8 @@ export const HeaderLine = styled.div`
   right: 0;
   height: 1px;
   border-bottom: 1px solid #000000;
+`;
+
+export const SizedBox = styled.div`
+  height: 50px;
 `;

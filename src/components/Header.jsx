@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { HeaderStyle, HeaderContainer, LogoImg, MenuButton, TestBox, HeaderLine } from './styles';
+import {
+  HeaderStyle,
+  HeaderContainer,
+  LogoImg,
+  MenuButton,
+  TestBox,
+  HeaderLine,
+  SizedBox
+} from '../styles/StyledHeader';
 import testLogo from '../assets/testlogo.png';
 
-function Header() {
-  const [logoScale, setLogoScale] = useState(1);
+const Header = () => {
+  const [logoWidth, setLogoWidth] = useState('100%');
+  const [logoHeight, setLogoHeight] = useState('100%');
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const newScale = Math.max(0.5, 1 - scrollY / 500);
+      const newWidth = `${Math.max(30, 100 - scrollY / 4)}%`;
+      const newHeight = `${Math.max(30, 100 - scrollY / 4)}%`;
 
-      setLogoScale(newScale);
+      setLogoWidth(newWidth);
+      setLogoHeight(newHeight);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -33,12 +44,19 @@ function Header() {
             <MenuButton>Logout</MenuButton>
           </div>
         </HeaderContainer>
-        <LogoImg style={{ transform: `scale(${logoScale})` }} src={testLogo} />
-        <HeaderLine />
+        {/* 아래 스타일을 스타일 컴포넌트화 시켜서 넣으면 제대로 작동안하는 이슈가 있어 빼서 작성  */}
+        <div style={{ display: 'flex', position: 'absolute', width: '100%', justifyContent: 'center' }}>
+          <center>
+            <div>
+              <LogoImg style={{ width: logoWidth, height: logoHeight }} src={testLogo} />
+            </div>
+          </center>
+          <HeaderLine />
+        </div>
       </HeaderStyle>
       <TestBox></TestBox>
     </>
   );
-}
+};
 
 export default Header;
