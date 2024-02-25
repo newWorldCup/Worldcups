@@ -2,7 +2,7 @@ import React from 'react';
 import { getWorldCups } from '../api/queryFans';
 import { useQuery } from 'react-query';
 const Main = () => {
-  const { isLoading, isError, data } = useQuery('worldCupLists', getWorldCups);
+  const { isLoading, isError, data } = useQuery(['worldCupLists'], getWorldCups);
 
   if (isLoading) {
     return <div>로딩중...</div>;
