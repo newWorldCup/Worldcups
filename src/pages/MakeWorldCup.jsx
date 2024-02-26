@@ -14,7 +14,6 @@ const MakeWorldCup = () => {
   const [makeingWorldCup, setMakingWorldCup] = useState(false);
   const [worldCupTitle, setWorldCupTitle] = useState('');
   const [videoList, setVideoList] = useState([]);
-  const [isMakAble, setIsMakable] = useState(true);
   const dispatch = useDispatch();
   const searchList = useSelector((state) => state.searchListSlice);
   const worldCupList = useSelector((state) => state.worldCupListSlice);
@@ -67,7 +66,7 @@ const MakeWorldCup = () => {
     if (searchword) {
       try {
         const { data } = await axios.get(
-          `${url}/search?part=snippet&maxResults=10&q=${searchword}&key=AIzaSyCz0moHjm4tSh2cd0z2lhvcgTJyXpQSW4I`
+          `${url}/search?part=snippet&maxResults=8&q=${searchword}&key=AIzaSyCz0moHjm4tSh2cd0z2lhvcgTJyXpQSW4I`
         );
         console.log(data);
         dispatch(addSearchList(data));
@@ -110,7 +109,6 @@ const MakeWorldCup = () => {
     } else if (videoList.length === 0) {
       alert('후보가 될 영상들을 추가해주세요');
     } else {
-      setIsMakable(false);
       const newWorldCup = {
         userId: '추가예정',
         avatar: '추가예정',
@@ -125,10 +123,15 @@ const MakeWorldCup = () => {
   return (
     <EntireDiv>
       <h1>나만의 월드컵 만들기</h1>
-      <TitleDiv>
-        <input value={searchword} onChange={(e) => searchWordHandler(e)} autoFocus></input>
+      <TitleForm onSubmit={(e) => e.preventDefault()}>
+        <input
+          value={searchword}
+          onChange={(e) => searchWordHandler(e)}
+          placeholder="취향에 맞는 영상을 검색해주세요."
+          autoFocus
+        ></input>
         <button onClick={() => searchitem(searchword)}>검색</button>
-      </TitleDiv>
+      </TitleForm>
 
       {makeingWorldCup ? (
         <MakeWorldCupDiv>
@@ -137,9 +140,7 @@ const MakeWorldCup = () => {
               <span>월드컵 이름</span>
               <input value={worldCupTitle} onChange={(e) => worldCupTitleHandler(e)}></input>
             </div>
-            <button onClick={worldCupHandler} disabled={isMakAble}>
-              월드컵 완성
-            </button>
+            <button onClick={worldCupHandler}>월드컵 완성</button>
           </WorldCupTitle>
           <CandidatesvideosDiv>
             <p>Candidates</p>
@@ -187,7 +188,7 @@ const EntireDiv = styled.div`
   align-items: center;
 `;
 
-const TitleDiv = styled.div`
+const TitleForm = styled.form`
   width: 100%;
   height: 120px;
   display: flex;
@@ -256,7 +257,7 @@ const WorldCupTitle = styled.div`
     font-weight: 550;
     color: #52606d;
     &:hover {
-      background-color: ${({ isMakAble }) => (isMakAble ? 'none' : '#dcdcde')};
+      background-color: #dcdcde;
     }
   }
 `;
@@ -277,6 +278,7 @@ const CandidatesvideosDiv = styled.div`
   display: flex;
   flex-direction: column;
   & p {
+    margin-left: 20px;
     font-weight: 550;
     font-size: 20px;
   }
@@ -345,6 +347,10 @@ const StyledLink = styled(Link)`
   align-items: center;
   width: 250px;
   height: 270px;
+  color: inherit;
+  &:hover {
+    color: #52606d;
+  }
   & p {
     height: 40px;
     overflow: hidden;
