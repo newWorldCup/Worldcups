@@ -14,14 +14,14 @@ function Profile() {
   const [userMail, setUserMail] = useState(null);
 
   useEffect(() => {
-    // const auth = getAuth();
-    // onAuthStateChanged(auth, (user) => {
-    // if (user) {
-    // setUserMail(user.email);
-    // } else {
-    // setUserMail(null);
-    // }
-    // });
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserMail(user.email);
+      } else {
+        setUserMail(null);
+      }
+    });
   }, []);
 
   const filterWorldCupList = data?.filter((item) => item.userId === userMail);
