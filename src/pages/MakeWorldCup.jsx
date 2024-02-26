@@ -7,13 +7,9 @@ import { addWorldCup, fetchWorldCupList } from 'api/queryFns';
 import { url, youtubeUrl } from 'common/data';
 import { Link } from 'react-router-dom';
 import { getWorldCup, plusworldCup } from 'worldCupRedux/modules/worldCupSlice';
+import styled from 'styled-components';
 
 const MakeWorldCup = () => {
-  // GET https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=surfing&key=[YOUR_API_KEY]
-
-  // Authorization: Bearer [YOUR_ACCESS_TOKEN]
-  // Accept: application/json
-
   const [searchword, setSearchWord] = useState('');
   const [makeingWorldCup, setMakingWorldCup] = useState(false);
   const [worldCupTitle, setWorldCupTitle] = useState('');
@@ -61,15 +57,19 @@ const MakeWorldCup = () => {
   };
 
   const searchitem = async (searchword) => {
-    try {
-      const { data } = await axios.get(
-        `${url}/search?part=snippet&maxResults=1&q=${searchword}&key=AIzaSyCz0moHjm4tSh2cd0z2lhvcgTJyXpQSW4I`
-      );
-      console.log(data);
-      dispatch(addSearchList(data));
-      setSearchWord('');
-    } catch (error) {
-      console.log(error);
+    if (searchword) {
+      try {
+        const { data } = await axios.get(
+          `${url}/search?part=snippet&maxResults=1&q=${searchword}&key=AIzaSyCz0moHjm4tSh2cd0z2lhvcgTJyXpQSW4I`
+        );
+        console.log(data);
+        dispatch(addSearchList(data));
+        setSearchWord('');
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert('검색어를 입력해주세요.');
     }
   };
 
@@ -83,44 +83,55 @@ const MakeWorldCup = () => {
   };
 
   const addVideo = (id, title, thumbNail) => {
-    const newLink = {
-      videoId: id,
-      videoTitle: title,
-      thumbNailUrl: thumbNail
-    };
-    setVideoList([...videoList, newLink]);
+    if (videoList.find((cup) => cup.videoId === id)) {
+      alert('같은 영상은 다시 추가할 수 없습니다.');
+    } else {
+      const newLink = {
+        videoId: id,
+        videoTitle: title,
+        thumbNailUrl: thumbNail
+      };
+      setVideoList([...videoList, newLink]);
+    }
   };
 
   const worldCupHandler = () => {
-    const newWorldCup = {
-      userId: '추가예정',
-      avatar: '추가예정',
-      worldCupTitle,
-      createdAt: String(new Date()),
-      videoList
-    };
-    dispatch(plusworldCup(newWorldCup));
-    // const mutation = useMutation({
-    //     mutationFn
-    // })
-    mutateToAdd(newWorldCup);
+    if (worldCupTitle) {
+      const newWorldCup = {
+        userId: '추가예정',
+        avatar: '추가예정',
+        worldCupTitle,
+        createdAt: String(new Date()),
+        videoList
+      };
+      dispatch(plusworldCup(newWorldCup));
+
+      mutateToAdd(newWorldCup);
+    } else {
+      alert('월드컵 이름을 작성해주세요');
+    }
   };
 
   return (
     <>
-      <div>
-        <input value={searchword} onChange={(e) => searchWordHandler(e)}></input>
-        <button onClick={() => searchitem(searchword)}>검색</button>
-        <button onClick={clickmakeWorldCup}>월드컵 만들기</button>
-      </div>
+      <TitleDiv>
+        <div>
+          <input value={searchword} onChange={(e) => searchWordHandler(e)}></input>
+          <button onClick={() => searchitem(searchword)}>검색</button>
+          <button onClick={clickmakeWorldCup}>월드컵 만들기</button>
+        </div>
+      </TitleDiv>
 
       {makeingWorldCup ? (
-        <div style={{ borderBottom: '2px solid black' }}>
-          <div>
-            <p>월드컵 이름</p>
-            <input value={worldCupTitle} onChange={(e) => worldCupTitleHandler(e)}></input>
+        <MakeWorldCupDiv style={{ borderBottom: '2px solid black' }}>
+          <WorldCupTitle>
+            <div>
+              <span>월드컵 이름</span>
+              <input value={worldCupTitle} onChange={(e) => worldCupTitleHandler(e)}></input>
+            </div>
+
             <button onClick={worldCupHandler}>월드컵 완성!</button>
-          </div>
+          </WorldCupTitle>
           <div>
             <p>월드컵에 들어갈 영상들</p>
             <div>
@@ -131,7 +142,7 @@ const MakeWorldCup = () => {
               ))}
             </div>
           </div>
-        </div>
+        </MakeWorldCupDiv>
       ) : null}
 
       <div>
@@ -153,14 +164,35 @@ const MakeWorldCup = () => {
             ))
           : null}
       </div>
-
-      <div>
-        {worldCups.map((cup, idx) => (
-          <div key={idx}>{cup.id}</div>
-        ))}
-      </div>
     </>
   );
 };
 
 export default MakeWorldCup;
+
+const TitleDiv = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const WorldCupTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 50px;
+  & div {
+    padding: 0 10px;
+    gap: 10px;
+  }
+  & div > input {
+  }
+`;
+
+const MakeWorldCupDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
