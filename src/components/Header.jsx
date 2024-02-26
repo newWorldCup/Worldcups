@@ -8,7 +8,7 @@ import {
   HeaderLine,
   SizedBox
 } from '../styles/StyledHeader';
-import testLogo from '../assets/testlogo2.png';
+import testLogo from '../assets/testlogo3.png';
 
 const Header = () => {
   const [logoWidth, setLogoWidth] = useState('100%');
@@ -39,11 +39,11 @@ const Header = () => {
       <HeaderStyle>
         <HeaderContainer>
           <div>
-            <MenuButton>List</MenuButton>
-            <MenuButton>New Worldcup</MenuButton>
+            <MenuButton to="/">List</MenuButton>
+            <MenuButton>NewWorldcup</MenuButton>
           </div>
           <div>
-            <MenuButton>Mypage</MenuButton>
+            <MenuButton to="/mypage">Mypage</MenuButton>
             <MenuButton>Logout</MenuButton>
           </div>
         </HeaderContainer>
@@ -54,7 +54,7 @@ const Header = () => {
             position: 'absolute',
             width: '100%',
             justifyContent: 'center',
-            pointerevents: 'none'
+            pointerEvents: 'none'
           }}
         >
           <center>

@@ -13,25 +13,26 @@ import NonAuthLayout from 'components/NonAuthLayout';
 function Router() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* 테스트용 헤더 */}
-        <Route path="/header" element={<Header />} />
-        {/* 로그인 상관없이 로딩되는 페이지 : 메인(리스트), 디테일(게임하는페이지) */}
-        <Route element={<Layout />}>
-          <Route path="/" element={<Main />} />
-          <Route path="/detail" element={<Detail />} />
-        </Route>
-        {/* 로그인이 필요한 페이지 : 마이페이지, 만들기페이지 */}
-        <Route element={<AuthLayout />}>
-          <Route path="/mypage" element={<Mypage />} />
-        </Route>
-        {/* 로그인 상태면 안되는 페이지 : 로그인페이지 */}
-        <Route element={<NonAuthLayout />}>
-          <Route path="/login" element={<Login />} />
-        </Route>
+      <Header>
+        <Routes>
+          {/* 테스트용 헤더 */}
+          {/* 로그인 상관없이 로딩되는 페이지 : 메인(리스트), 디테일(게임하는페이지) */}
+          <Route element={<Layout />}>
+            <Route path="/" element={<Main />} />
+            <Route path="/detail" element={<Detail />} />
+          </Route>
+          {/* 로그인이 필요한 페이지 : 마이페이지, 만들기페이지 */}
+          <Route element={<AuthLayout />}>
+            <Route path="/mypage" element={<Mypage />} />
+          </Route>
+          {/* 로그인 상태면 안되는 페이지 : 로그인페이지 */}
+          <Route element={<NonAuthLayout />}>
+            <Route path="/login" element={<Login />} />
+          </Route>
 
-        <Route path="*" element={<div>Not Found</div>} />
-      </Routes>
+          <Route path="*" element={<div>Not Found</div>} />
+        </Routes>
+      </Header>
     </BrowserRouter>
   );
 }

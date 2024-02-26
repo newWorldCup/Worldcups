@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const HeaderStyle = styled.div`
   position: fixed;
@@ -12,7 +13,7 @@ export const HeaderStyle = styled.div`
 export const HeaderContainer = styled.div`
   top: 0;
   width: 100%;
-  padding: 30px 30px 0px 20px;
+  padding: 40px 30px 0px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,12 +25,13 @@ export const LogoImg = styled.img`
   max-width: 100%;
 `;
 
-export const MenuButton = styled.button`
+export const MenuButton = styled(Link)`
   padding: 10px;
   border: none;
   border-radius: 10px;
   background-color: transparent;
   font-size: 30px;
+  color: #000000;
   cursor: pointer;
   &:hover {
     color: var(--main-color);
