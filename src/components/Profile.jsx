@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useMutation, QueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 function Profile() {
-  // const {data} = useQuery(["worldCupList" , getWorldCupList]);
+  // const {data} = useQuery(["worldCupList" ] , getWorldCupList);
   // const mutation = useMutation(deleteWorldCupList, {
   //   onSuccess: () => {
   //     QueryClient.invalidateQueries("worldCupList")
@@ -12,65 +12,56 @@ function Profile() {
   // });
   const navigate = useNavigate();
   const [userMail, setUserMail] = useState(null);
+
   useEffect(() => {
     // const auth = getAuth();
     // onAuthStateChanged(auth, (user) => {
-      // if (user) {
-        // setUserMail(user.email);
-      // } else {
-        // setUserMail(null);
-      // }
+    // if (user) {
+    // setUserMail(user.email);
+    // } else {
+    // setUserMail(null);
+    // }
     // });
-    const navigateHome =()=>{
-      if(userMail === null){
-        navigate('/');
-        alert("로그인을 해주세요");
-      }
-    }
-    navigateHome();
   }, []);
 
-  const filterWorldCupList = data?.filter((item)=> item.userId === userMail);
+  const filterWorldCupList = data?.filter((item) => item.userId === userMail);
 
-  const onClickDelete =()=>{
+  const onClickDelete = () => {
     // mutation.mutate(data.id);
-  }
-  
+  };
 
   return (
     <div>
-      {
-        filterWorldCupList?.map((item)=>{
-          return (
-            <>
-            <span>{item.userId}</span>
+      {filterWorldCupList?.map((item) => {
+        return (
+          <>
             <div>
-              <img src={item.avatar} alt="profileImg" />
+              <div>
+                <img src={item.avatar} alt="profileImg" />
+              </div>
+              <span>{item.userId}</span>
             </div>
             <div>
-              <h2>{item.worldCupLinkList.linkTitle}</h2>
+              <h2>{item.videoList.videoTitle}</h2>
               <ul onClick={onClickDelete}>
-                <li>
+                <li key={item.videoList.id}>
                   <video
-                    url={item.worldCupLinkList.link}
-                    width='400px'
-                    height='300px'
+                    url={item.videoList.thumbNailUrl}
+                    width="400px"
+                    height="300px"
                     playing={true}
                     muted={true}
                     controls={true}
                     loop={true}
                   />
                 </li>
-                </ul>
-              
+              </ul>
             </div>
-            </>
-          )
-        })
-      }
-      
+          </>
+        );
+      })}
     </div>
-  )
+  );
 }
 
-export default Profile
+export default Profile;
