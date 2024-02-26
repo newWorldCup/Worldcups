@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   StyledSignUi,
   StyledPage,
@@ -10,33 +9,53 @@ import {
   StyledP
 } from '../../styles/StyledSign';
 import { useNavigate } from 'react-router-dom';
-
+import useFormInput from 'components/common/useFormInput';
 const SignInPage = () => {
+  const email = useFormInput(''); //커스텀훅value 자리에 email이 들어갑니다
+  const password = useFormInput(''); //커스텀훅value 자리에 password 들어갑니다
   const navigate = useNavigate();
+
+  const inputValidate = () => {
+    if (!email.value.trim() || !password.value.trim()) {
+      alert('아이디와 비밀번호를 모두 입력하세요');
+      return false;
+    }
+    return true;
+  };
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    if (inputValidate()) {
+      console.log(email.value, password.value);
+    }
+  };
+
   return (
     <StyledPage>
-      <StyledSignUi onSubmit={1}>
+      <StyledSignUi onSubmit={onSubmitHandler}>
         <StyledTitle>로그인</StyledTitle>
         <StyledInputs>
           <StyledInput
-            name="id"
-            value={1}
-            onChange={1}
-            placeholder="아이디(4~10글자)"
+            type="email"
+            name="email"
+            value={email.value}
+            onChange={email.onChange} //커스텀훅으로 핸들러를 대신함
+            placeholder="아이디를 입력하세요"
             minLength={4}
-            maxLength={10}
+            maxLength={30}
           ></StyledInput>
           <StyledInput
+            type="password"
             name="password"
-            value={1}
-            onChange={1}
-            placeholder="비밀번호(4~15글자)"
+            value={password.value}
+            onChange={password.onChange} //커스텀훅으로 핸들러를 대신함
+            placeholder="비밀번호를 입력하세요"
             minLength={4}
             maxLength={15}
           ></StyledInput>
         </StyledInputs>
         <StyledButtons>
-          <StyledBtn>로그인</StyledBtn>
+          <StyledBtn type="submit">로그인</StyledBtn>
           <StyledP onClick={() => navigate('/signup')}>회원가입</StyledP>
         </StyledButtons>
       </StyledSignUi>

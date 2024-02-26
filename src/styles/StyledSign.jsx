@@ -5,15 +5,15 @@ export const StyledPage = styled.div`
   background-color: white;
 `;
 export const StyledSignUi = styled.form`
-  width: 840px;
-  height: 500px;
-  margin: 100px auto 0px auto;
+  width: 740px;
+  height: 600px;
+  margin: 50px auto 50px auto;
   background-color: white;
   border: 1px solid black;
   border-radius: 15px;
 `;
 export const StyledTitle = styled.div`
-  width: 800px;
+  width: 700px;
   height: 30px;
   border: 1px solid transparent;
   border-radius: 15px;
@@ -25,7 +25,7 @@ export const StyledTitle = styled.div`
   padding: 20px;
 `;
 export const StyledInputs = styled.div`
-  width: 800px;
+  width: 700px;
   height: 250px;
   border: 1px solid transparent;
   border-radius: 15px;
@@ -36,7 +36,7 @@ export const StyledInputs = styled.div`
   padding: 20px;
 `;
 export const StyledButtons = styled.div`
-  width: 800px;
+  width: 700px;
   height: 100px;
   border: 1px solid transparent;
   border-radius: 15px;
@@ -61,7 +61,7 @@ export const StyledBtn = styled.button`
   }
 `;
 export const StyledInput = styled.input`
-  width: 760px;
+  width: 660px;
   height: 50px;
   margin: 20px auto 20px auto;
   border: 1px solid transparent;
