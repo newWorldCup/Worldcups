@@ -10,6 +10,8 @@ import {
 } from '../../styles/StyledSign';
 import { useNavigate } from 'react-router-dom';
 import useFormInput from 'components/common/useFormInput';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase/firebase';
 const SignInPage = () => {
   const email = useFormInput(''); //커스텀훅value 자리에 email이 들어갑니다
   const password = useFormInput(''); //커스텀훅value 자리에 password 들어갑니다
@@ -23,10 +25,21 @@ const SignInPage = () => {
     return true;
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (inputValidate()) {
-      console.log(email.value, password.value);
+      try {
+        const signIn = await signInWithEmailAndPassword(auth, email.value, password.value);
+        console.log(signIn);
+        navigate('/', { replace: true });
+      } catch (error) {
+        if (error.code === 'auth/invalid-credential') {
+          return alert('존재하지 않는 아이디입니다!');
+        } else {
+          alert('비밀번호가 맞지 않습니다!');
+          console.log(error);
+        }
+      }
     }
   };
 
@@ -50,7 +63,7 @@ const SignInPage = () => {
             value={password.value}
             onChange={password.onChange} //커스텀훅으로 핸들러를 대신함
             placeholder="비밀번호를 입력하세요"
-            minLength={4}
+            minLength={6}
             maxLength={15}
           ></StyledInput>
         </StyledInputs>
