@@ -30,7 +30,7 @@ const MakeWorldCup = () => {
     }
   });
 
-  //   firebase에서 worldCupList 가져오기
+  // firebase에서 worldCupList 가져오기
   const {
     isLoading,
     isError,
@@ -143,7 +143,6 @@ const MakeWorldCup = () => {
           </WorldCupTitle>
           <CandidatesvideosDiv>
             <p>Candidates</p>
-
             <div>
               {videoList.map((video) => (
                 <>
