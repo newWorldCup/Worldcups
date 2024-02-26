@@ -4,58 +4,58 @@ import { WorldcupGame } from '../styles/StyledDetail.jsx';
 
 const items = [
   {
-    name: '햄버거',
-    src: require('../../img/burger.jpg')
+    name: '1',
+    src: require('../assets/testlogo2.png')
   },
   {
-    name: '볶음밥',
-    src: require('../../img/fried-rice.jpg')
+    name: '2',
+    src: require('../assets/testlogo2.png')
   },
   {
-    name: '파스타',
-    src: require('../../img/pasta.jpg')
+    name: '3',
+    src: require('../assets/testlogo2.png')
   },
   {
-    name: '라면',
-    src: require('../../img/ramen.jpg')
+    name: '4',
+    src: require('../assets/testlogo2.png')
   }
 ];
 
 const Detail = () => {
-  const [foods, setFoods] = useState([]);
+  const [loves, setLoves] = useState([]);
   const [displays, setDisplays] = useState([]);
   const [winners, setWinners] = useState([]);
   useEffect(() => {
     items.sort(() => Math.random() - 0.5);
-    setFoods(items);
+    setLoves(items);
     setDisplays([items[0], items[1]]);
   }, []);
 
   const clickHandler = (food) => () => {
-    if (foods.length <= 2) {
+    if (loves.length <= 2) {
       if (winners.length === 0) {
         setDisplays([food]);
       } else {
         let updatedFood = [...winners, food];
-        setFoods(updatedFood);
+        setLoves(updatedFood);
         setDisplays([updatedFood[0], updatedFood[1]]);
         setWinners([]);
       }
-    } else if (foods.length > 2) {
+    } else if (loves.length > 2) {
       setWinners([...winners, food]);
-      setDisplays([foods[2], foods[3]]);
-      setFoods(foods.slice(2));
+      setDisplays([loves[2], loves[3]]);
+      setLoves(loves.slice(2));
     }
   };
 
   return (
     <WorldcupGame>
-      <h1 className="title">Food Worldcup</h1>
-      {displays.map((d) => {
+      <h1 className="title">My Worldcup</h1>
+      {displays.map((item) => {
         return (
-          <div className="flex-1" key={d.name} onClick={clickHandler(d)}>
-            <img className="food-img" src={d.src} />
-            <div className="name">{d.name}</div>
+          <div className="flex-1" key={item.name} onClick={clickHandler(item)}>
+            <img className="img" src={item.src} />
+            <div className="name">{item.name}</div>
           </div>
         );
       })}

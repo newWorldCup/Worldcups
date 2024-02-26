@@ -40,7 +40,7 @@ const Header = () => {
         <HeaderContainer>
           <div>
             <MenuButton to="/">List</MenuButton>
-            <MenuButton>NewWorldcup</MenuButton>
+            <MenuButton to="/makeWorldCup">NewWorldcup</MenuButton>
           </div>
           <div>
             <MenuButton to="/mypage">Mypage</MenuButton>
