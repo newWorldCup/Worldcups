@@ -86,17 +86,21 @@ const MakeWorldCup = () => {
     if (videoList.find((cup) => cup.videoId === id)) {
       alert('같은 영상은 다시 추가할 수 없습니다.');
     } else {
-      const newLink = {
+      const newvideo = {
         videoId: id,
         videoTitle: title,
         thumbNailUrl: thumbNail
       };
-      setVideoList([...videoList, newLink]);
+      setVideoList([...videoList, newvideo]);
     }
   };
 
   const worldCupHandler = () => {
-    if (worldCupTitle) {
+    if (!worldCupTitle) {
+      alert('월드컵 이름을 작성해주세요');
+    } else if (videoList.length === 0) {
+      alert('후보가 될 영상들을 추가해주세요');
+    } else {
       const newWorldCup = {
         userId: '추가예정',
         avatar: '추가예정',
@@ -107,8 +111,6 @@ const MakeWorldCup = () => {
       dispatch(plusworldCup(newWorldCup));
 
       mutateToAdd(newWorldCup);
-    } else {
-      alert('월드컵 이름을 작성해주세요');
     }
   };
 
@@ -129,11 +131,10 @@ const MakeWorldCup = () => {
               <span>월드컵 이름</span>
               <input value={worldCupTitle} onChange={(e) => worldCupTitleHandler(e)}></input>
             </div>
-
             <button onClick={worldCupHandler}>월드컵 완성!</button>
           </WorldCupTitle>
-          <div>
-            <p>월드컵에 들어갈 영상들</p>
+          <WoldCupvideosDiv>
+            <p>Candidates</p>
             <div>
               {videoList.map((video) => (
                 <div key={video.videoId}>
@@ -141,7 +142,7 @@ const MakeWorldCup = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </WoldCupvideosDiv>
         </MakeWorldCupDiv>
       ) : null}
 
@@ -181,18 +182,25 @@ const TitleDiv = styled.div`
 const WorldCupTitle = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: flex-end;
   width: 100%;
-  height: 50px;
+  height: 40px;
+
   & div {
-    padding: 0 10px;
+    display: flex;
     gap: 10px;
+    padding: 0 10px;
   }
-  & div > input {
+  & button {
+    margin: 0 30px 0 10px;
   }
 `;
 
 const MakeWorldCupDiv = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const WoldCupvideosDiv = styled.div`
+  height: 200px;
 `;
