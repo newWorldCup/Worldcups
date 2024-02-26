@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {
-  HeaderStyle,
-  HeaderContainer,
-  LogoImg,
-  MenuButton,
-  TestBox,
-  HeaderLine,
-  SizedBox
-} from '../styles/StyledHeader';
-import testLogo from '../assets/testlogo3.png';
+import { HeaderStyle, HeaderContainer, LogoImg, MenuButton, TestBox, HeaderLine, SizedBox } from 'styles/StyledHeader';
+import testLogo from 'assets/testlogo3.png';
 
 const Header = () => {
   const [logoWidth, setLogoWidth] = useState('100%');
