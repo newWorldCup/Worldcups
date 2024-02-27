@@ -6,6 +6,7 @@ const Header = () => {
   const [logoWidth, setLogoWidth] = useState('100%');
   const [logoHeight, setLogoHeight] = useState('100%');
   const [logoMargin, setLogoMargin] = useState('60px 0px 0px 0px');
+  const [headerHeight, setHeaderHeight] = useState('300px');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,10 +14,12 @@ const Header = () => {
       const newWidth = `${Math.max(30, 100 - scrollY / 4)}%`;
       const newHeight = `${Math.max(30, 100 - scrollY / 4)}%`;
       const newMargin = `${Math.max(0, 70 - scrollY / 4)}px 0px 0px 0px`;
+      const newHeaderHeight = `${Math.max(100, 300 - scrollY / 4)}px`;
 
       setLogoWidth(newWidth);
       setLogoHeight(newHeight);
       setLogoMargin(newMargin);
+      setHeaderHeight(newHeaderHeight);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -57,6 +60,7 @@ const Header = () => {
           <HeaderLine />
         </div>
       </HeaderStyle>
+      <div style={{ height: headerHeight, visibility: 'hidden', position: 'fixed', top: 0 }}></div>
     </>
   );
 };

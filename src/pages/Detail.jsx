@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs } from '@firebase/firestore';
+import { doc, getDoc } from '@firebase/firestore';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import {
@@ -69,7 +69,7 @@ const Detail = () => {
 
   /** react-youtube 옵션 설정 */
   const opts = {
-    height: '500',
+    height: '600',
     playerVars: {
       autoplay: 0
     }

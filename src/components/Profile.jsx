@@ -1,12 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
-import { useMutation, QueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 // import YouTube from 'react-youtube';
 
 function Profile() {
-  const navigate = useNavigate();
   const [userMail, setUserMail] = useState(null);
 
   useEffect(() => {
@@ -19,8 +15,6 @@ function Profile() {
       }
     });
   }, []);
-
-  const onClickDelete = () => {};
 
   return (
     <div>
