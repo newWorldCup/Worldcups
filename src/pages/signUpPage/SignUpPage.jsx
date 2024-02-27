@@ -11,12 +11,13 @@ import {
 } from 'styles/StyledSign';
 import useFormInput from 'components/common/useFormInput';
 import { useNavigate } from 'react-router-dom';
-import { auth } from 'firebaseStore/firebaseConfig';
+import { auth, db } from 'firebaseStore/firebaseConfig';
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 const SignUpPage = () => {
   const email = useFormInput(''); //커스텀훅value 자리에 email이 들어갑니다
-  const password = useFormInput('');
-  const nickname = useFormInput(''); //커스텀훅value 자리에 password 들어갑니다
+  const password = useFormInput(''); //커스텀훅value 자리에 password 들어갑니다
+  const nickname = useFormInput('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,7 +38,11 @@ const SignUpPage = () => {
     if (inputValidate()) {
       try {
         const signUp = await createUserWithEmailAndPassword(auth, email.value, password.value);
-        console.log(signUp);
+        const user = signUp.user;
+        await setDoc(doc(db, 'users', user.uid), {
+          email: email.value,
+          nickname: nickname.value
+        });
         alert('회원가입에 성공했습니다!');
         navigate('/signin');
       } catch (error) {
