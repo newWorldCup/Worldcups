@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addSearchList } from 'worldCupRedux/modules/makeWorldCup/searchListSlice';
+import { addSearchList, resetSearchList } from 'worldCupRedux/modules/makeWorldCup/searchListSlice';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addWorldCup, fetchWorldCupList } from 'api/queryFns';
 import { url, youtubeUrl } from 'common/data';
@@ -30,7 +30,6 @@ const MakeWorldCup = () => {
   const worldCupList = useSelector((state) => state.worldCupListSlice);
   const rawUid = localStorage.getItem('uid');
   const uid = rawUid ? JSON.parse(rawUid) : '';
-  console.log(uid);
   const dispatch = useDispatch();
   console.log(worldCupList);
 
@@ -129,7 +128,7 @@ const MakeWorldCup = () => {
       alert('후보가 될 영상들을 추가해주세요');
     } else {
       const newWorldCup = {
-        uid: '',
+        uid,
         userId: '추가예정',
         worldCupTitle,
         createdAt: String(new Date()),
@@ -138,6 +137,7 @@ const MakeWorldCup = () => {
       alert('월드컵 완성! 월드컵 리스트에서 확인하세요:)');
       setVideoList([]);
       setWorldCupTitle('');
+      dispatch(resetSearchList());
       mutateToAdd(newWorldCup);
       localStorage.removeItem('videoList');
     }

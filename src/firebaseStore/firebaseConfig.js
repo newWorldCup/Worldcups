@@ -15,6 +15,7 @@ const firebaseConfig = {
   storageBucket: 'my-worldcup-dd45c.appspot.com',
   messagingSenderId: '1008692414359',
   appId: '1:1008692414359:web:e4842c0565438458efe6d2'
+  // measurementId: process.env.REACT_APP_FIREBARES_MEASUERMENT_ID
 };
 
 // Initialize Firebase
