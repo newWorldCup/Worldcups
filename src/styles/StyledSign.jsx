@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const StyledSignUi = styled.form`
   width: 740px;
-  height: 1000px;
   margin: 50px auto 50px auto;
   background-color: white;
   border-radius: 15px;

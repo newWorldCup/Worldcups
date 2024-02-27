@@ -1,3 +1,4 @@
+import React from 'react';
 import SearchList from 'components/HomeComponents/SearchList';
 import styled from 'styled-components';
 import { BodyDiv } from 'styles/StyledMain';

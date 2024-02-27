@@ -28,6 +28,9 @@ const MakeWorldCup = () => {
   const [videoList, setVideoList] = useState(parsedList);
   const searchList = useSelector((state) => state.searchListSlice);
   const worldCupList = useSelector((state) => state.worldCupListSlice);
+  const rawUid = localStorage.getItem('uid');
+  const uid = rawUid ? JSON.parse(rawUid) : '';
+  console.log(uid);
   const dispatch = useDispatch();
   console.log(worldCupList);
 
@@ -126,8 +129,8 @@ const MakeWorldCup = () => {
       alert('후보가 될 영상들을 추가해주세요');
     } else {
       const newWorldCup = {
+        uid: '',
         userId: '추가예정',
-        avatar: '추가예정',
         worldCupTitle,
         createdAt: String(new Date()),
         videoList
