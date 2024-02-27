@@ -1,12 +1,28 @@
-import React from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import LoadingPage from 'pages/signInPage/LoadingPage';
+import React, { useState, useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const AuthLayout = () => {
-  const isAuthenticated = localStorage.getItem('accessToken') ? true : false;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const auth = getAuth();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAuthenticated(!!user); //user가 있고 없고에 따라 isAuthenticated값이 바뀌는데 그냥쓰면 undefined로 뜨기 때문에 !!연산자로 true로 바꿔줍니다
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
+
+  if (loading) {
+    return <LoadingPage />;
+  }
 
   if (!isAuthenticated) {
-    alert('로그인이 필요합니다.');
-    return <Navigate to="/login" replace />;
+    alert('로그인이 필요합니다!');
+    return <Navigate to="/signin" replace />;
   }
 
   return (

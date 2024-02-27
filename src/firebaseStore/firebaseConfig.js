@@ -6,17 +6,16 @@ import { getAnalytics } from 'firebase/analytics';
 import { getStorage } from 'firebase/storage';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBARES_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBARES_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBARES_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBARES_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBARES_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBARES_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBARES_MEASUERMENT_ID
+  apiKey: "AIzaSyBnfP4QroC_AlyW4JLgntjRg9Z-bYSMh3I",
+  authDomain: "myworldcup-4c446.firebaseapp.com",
+  projectId: "myworldcup-4c446",
+  storageBucket: "myworldcup-4c446.appspot.com",
+  messagingSenderId: "948337795021",
+  appId: "1:948337795021:web:e80bed11a2fbe851ea2e84",
+  measurementId: "G-59SJ6BGZJP"
 };
 
 console.log('apiKey', process.env.REACT_APP_FIREBARES_API_KEY);
