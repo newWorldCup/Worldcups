@@ -5,7 +5,7 @@ import testLogo from 'assets/testlogo3.png';
 const Header = () => {
   const [logoWidth, setLogoWidth] = useState('100%');
   const [logoHeight, setLogoHeight] = useState('100%');
-  const [headerMargin, setheaderMargin] = useState('60px 0px 0px 0px');
+  const [logoMargin, setLogoMargin] = useState('60px 0px 0px 0px');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,7 +16,7 @@ const Header = () => {
 
       setLogoWidth(newWidth);
       setLogoHeight(newHeight);
-      setheaderMargin(newMargin);
+      setLogoMargin(newMargin);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -51,13 +51,13 @@ const Header = () => {
         >
           <center>
             <div>
-              <LogoImg style={{ width: logoWidth, height: logoHeight, margin: headerMargin }} src={testLogo} />
+              <LogoImg style={{ width: logoWidth, height: logoHeight, margin: logoMargin }} src={testLogo} />
             </div>
           </center>
           <HeaderLine />
         </div>
       </HeaderStyle>
-      <TestBox></TestBox>
+      <TestBox />
     </>
   );
 };

@@ -2,7 +2,14 @@ import { collection, doc, getDoc, getDocs } from '@firebase/firestore';
 import { set } from 'lodash';
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { WorldcupGame } from 'styles/StyledDetail';
+import {
+  WorldcupGame,
+  WorldcupTitle,
+  WorldcupVideoList,
+  WorldcupVideo,
+  WorldcupVideoTitle,
+  WorldcupSeletButton
+} from 'styles/StyledDetail';
 import { db } from 'worldCupRedux/config/firebaseConfig';
 import YouTube from 'react-youtube';
 
@@ -31,40 +38,56 @@ const Detail = () => {
   }, []);
 
   const clickHandler = (selectedItem) => () => {
-    setWinners((prevWinners) => [...prevWinners, selectedItem]);
-    const remainingItems = worldcupItems.filter((item) => !winners.includes(item) && item !== selectedItem);
-    if (remainingItems.length > 1) {
-      setDisplays(remainingItems.slice(0, 2));
-    } else if (remainingItems.length === 1) {
-      // 마지막 남은 항목을 displays에 세팅
-      setDisplays(remainingItems);
-      console.log('최종 승자는', remainingItems[0]);
-    } else {
-      // 모든 선택이 끝났을 때, 최종 승자 표시
-      console.log('최종 승자는', selectedItem);
-      setDisplays([selectedItem]);
-    }
+    setWinners((prevWinners) => {
+      // 중복된 아이템이 없도록 업데이트
+      const updatedWinners = prevWinners.includes(selectedItem) ? prevWinners : [...prevWinners, selectedItem];
+      return updatedWinners;
+    });
+
+    setWorldcupItems((prevItems) => {
+      // 선택된 아이템을 제외한 새로운 리스트 생성
+      const newItems = prevItems.filter((item) => item !== selectedItem);
+      return newItems;
+    });
+
+    setDisplays((prevDisplays) => {
+      // 이전 worldcupItems에서 현재 선택된 아이템을 제외한 새로운 배열
+      const newRemainingItems = worldcupItems.filter((item) => item !== selectedItem && !winners.includes(item));
+
+      if (newRemainingItems.length > 1) {
+        // 남은 항목들 중에서 랜덤으로 2개를 선택하여 displays에 세팅
+        const shuffledRemainingItems = newRemainingItems.sort(() => Math.random() - 0.5);
+        return shuffledRemainingItems.slice(0, 2);
+      } else if (newRemainingItems.length === 1) {
+        // 마지막 남은 항목을 displays에 세팅
+        return newRemainingItems;
+      } else {
+        // 모든 선택이 끝났을 때, 최종 승자 표시
+        return [selectedItem];
+      }
+    });
   };
 
   /** react-youtube 옵션 설정 */
   const opts = {
-    height: '390',
-    width: '640',
+    height: '500',
     playerVars: {
-      autoplay: 0 // 영상 자동 재생 여부: 1이면 자동재생, 0이면 비활성화
+      autoplay: 0
     }
   };
 
   return (
     <WorldcupGame>
-      <h1>My Worldcup</h1>
-      {displays.map((video) => (
-        <div key={video.videoId}>
-          <YouTube videoId={video.videoId} opts={opts} />
-          <p>{video.videoTitle}</p>
-          <button onClick={clickHandler(video)}>선택</button>
-        </div>
-      ))}
+      <WorldcupTitle>My Worldcup Game</WorldcupTitle>
+      <WorldcupVideoList>
+        {displays.map((video) => (
+          <WorldcupVideo key={video.videoId}>
+            <YouTube videoId={video.videoId} opts={opts} />
+            <WorldcupVideoTitle>{video.videoTitle}</WorldcupVideoTitle>
+            <WorldcupSeletButton onClick={clickHandler(video)}>선택</WorldcupSeletButton>
+          </WorldcupVideo>
+        ))}
+      </WorldcupVideoList>
     </WorldcupGame>
   );
 };

@@ -8,12 +8,13 @@ export const HeaderStyle = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
+  z-index: 100;
 `;
 
 export const HeaderContainer = styled.div`
   top: 0;
   width: 100%;
-  padding: 40px 30px 0px 20px;
+  padding: 35px 30px 0px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,7 +40,7 @@ export const MenuButton = styled(Link)`
 `;
 
 export const TestBox = styled.div`
-  height: 2000px;
+  height: 1000px;
 `;
 
 export const HeaderLine = styled.div`
