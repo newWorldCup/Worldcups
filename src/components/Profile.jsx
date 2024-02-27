@@ -15,7 +15,6 @@ import {
 function Profile() {
   const [worldCupList, setWorldCupList] = useState([]);
   const userMail = JSON.parse(localStorage.getItem('email'));
-  console.log(userMail);
 
   useEffect(() => {
     const fetchData = async () => {
