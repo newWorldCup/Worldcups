@@ -57,7 +57,6 @@ const Header = () => {
           <HeaderLine />
         </div>
       </HeaderStyle>
-      <TestBox />
     </>
   );
 };
