@@ -1,8 +1,21 @@
 import styled from 'styled-components';
 
+export const SearchListContainer = styled.div`
+  margin-bottom: 30px;
+  padding: 0px 20px;
+`;
+
 export const InputDiv = styled.div`
-  margin: 10px 0px;
+  margin: 20px 0px 50px 0px;
   font-size: 30px;
+`;
+
+export const SearchInput = styled.input`
+  font-size: 26px;
+  padding: 10px 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-left: 10px;
 `;
 
 export const ContentDiv = styled.div`
@@ -11,8 +24,6 @@ export const ContentDiv = styled.div`
   display: flex;
   margin: 0 auto;
   flex-wrap: wrap;
-  border: 1px solid black;
-  border-radius: 5px;
   width: 100%;
   max-width: 1890px;
   opacity: 1;
@@ -32,12 +43,9 @@ export const BoxDiv = styled.div`
   ${ContentDiv}:hover & {
     opacity: 1;
   }
-
-  border: 1px solid blue;
-  border-radius: 5px;
+  border-radius: 10px;
   width: 300px;
   height: 200px;
-  margin: 10px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -46,15 +54,13 @@ export const BoxDiv = styled.div`
 `;
 
 export const InfoDiv = styled.div`
-  ${ContentDiv}:hover & {
-    opacity: 1;
-  }
-
   font-size: 30px;
-  display: block;
-  opacity: 0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  text-transform: uppercase;
-  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  color: black;
+  p {
+    font-size: 20px;
+  }
 `;

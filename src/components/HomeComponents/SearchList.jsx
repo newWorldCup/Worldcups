@@ -4,7 +4,16 @@ import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from 'firebaseStore/firebaseConfig';
 import useFormInput from 'components/common/useFormInput';
 
-import { InputDiv, BoxContentDiv, SemiContentDiv, ContentDiv, BoxDiv, InfoDiv } from 'styles/StyledSearchList';
+import {
+  SearchListContainer,
+  InputDiv,
+  SearchInput,
+  BoxContentDiv,
+  SemiContentDiv,
+  ContentDiv,
+  BoxDiv,
+  InfoDiv
+} from 'styles/StyledSearchList';
 
 const SearchList = () => {
   const navigate = useNavigate();
@@ -46,17 +55,11 @@ const SearchList = () => {
 
   console.log(cups);
   return (
-    <>
+    <SearchListContainer>
       <InputDiv>
         {' '}
-        검색창:&nbsp;
-        <input
-          style={{ width: '400px', height: '35px', fontSize: '35px' }}
-          placeholder="제목을 입력해 주세요."
-          size="40"
-          value={searchTitle.value}
-          onChange={searchTitle.onChange}
-        />
+        검색
+        <SearchInput placeholder="제목을 입력해 주세요." value={searchTitle.value} onChange={searchTitle.onChange} />
       </InputDiv>
       <ContentDiv>
         {searchTitle.value === ''
@@ -69,8 +72,8 @@ const SearchList = () => {
                     onClick={() => navigate(`/detail/${itemList.id}`)}
                   ></BoxDiv>
                   <InfoDiv>
-                    <h3>제목:&nbsp;{itemList.worldCupTitle}</h3>
-                    <p>작성자:&nbsp;{itemList.userId}</p>
+                    <h3>{itemList.worldCupTitle}</h3>
+                    <p>{itemList.userId}</p>
                   </InfoDiv>
                 </BoxContentDiv>
               );
@@ -84,14 +87,14 @@ const SearchList = () => {
                     onClick={() => navigate(`/detail/${itemList.id}`)}
                   ></BoxDiv>
                   <InfoDiv>
-                    <h3>제목:&nbsp;{itemList.worldCupTitle}</h3>
-                    <p>작성자:&nbsp;{itemList.userId}</p>
+                    <h3>{itemList.worldCupTitle}</h3>
+                    <p>{itemList.userId}</p>
                   </InfoDiv>
                 </BoxContentDiv>
               );
             })}
       </ContentDiv>
-    </>
+    </SearchListContainer>
   );
 };
 

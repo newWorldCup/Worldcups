@@ -8,10 +8,13 @@ const searchListSlice = createSlice({
   reducers: {
     addSearchList: (state, action) => {
       return action.payload;
+    },
+    resetSearchList: (state, action) => {
+      return [];
     }
   }
 });
 
-export const { addSearchList } = searchListSlice.actions;
+export const { addSearchList, resetSearchList } = searchListSlice.actions;
 
 export default searchListSlice.reducer;

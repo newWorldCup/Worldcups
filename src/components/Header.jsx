@@ -13,6 +13,9 @@ const Header = () => {
   const [logoWidth, setLogoWidth] = useState('100%');
   const [logoHeight, setLogoHeight] = useState('100%');
   const [logoMargin, setLogoMargin] = useState('60px 0px 0px 0px');
+  const rawUid = localStorage.getItem('uid');
+  const uid = rawUid ? JSON.parse(rawUid) : '';
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -31,14 +34,21 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const removeHandler = (item) => {
+    localStorage.removeItem(item);
+  };
+
   const logoutHandler = async () => {
     //파이어베이스 로그아웃 로직
     try {
       await signOut(auth);
       alert('로그아웃 되었습니다.');
+      navigate('/signin');
+      removeHandler(`videoList${uid}`);
+      removeHandler('uid');
+      removeHandler('token');
       navigate('/');
-      localStorage.removeItem('uid');
-      localStorage.removeItem('token');
     } catch (error) {
       console.error('로그아웃 실패', error);
     }
