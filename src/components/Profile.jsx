@@ -6,12 +6,6 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 // import YouTube from 'react-youtube';
 
 function Profile() {
-  // const {data} = useQuery(["worldCupList" ] , getWorldCupList);
-  // const mutation = useMutation(deleteWorldCupList, {
-  //   onSuccess: () => {
-  //     QueryClient.invalidateQueries("worldCupList")
-  //   }
-  // });
   const navigate = useNavigate();
   const [userMail, setUserMail] = useState(null);
 
