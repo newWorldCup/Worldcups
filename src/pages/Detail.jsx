@@ -7,7 +7,7 @@ import {
   WorldcupVideoList,
   WorldcupVideo,
   WorldcupVideoTitle,
-  WorldcupSeletButton
+  WorldcupSelectButton
 } from 'styles/StyledDetail';
 import { db } from 'firebaseStore/firebaseConfig';
 import YouTube from 'react-youtube';
@@ -42,7 +42,7 @@ const Detail = () => {
     };
 
     fetchItems();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     // 라운드 업데이트 시 새로운 라운드 시작 (승자 배열에서 다시 뽑기)
@@ -90,7 +90,7 @@ const Detail = () => {
           <WorldcupVideo key={video.videoId}>
             <YouTube videoId={video.videoId} opts={opts} />
             <WorldcupVideoTitle>{video.videoTitle}</WorldcupVideoTitle>
-            <WorldcupSeletButton onClick={clickHandler(video)}>선택</WorldcupSeletButton>
+            <WorldcupSelectButton onClick={clickHandler(video)}>선택</WorldcupSelectButton>
           </WorldcupVideo>
         ))}
       </WorldcupVideoList>
