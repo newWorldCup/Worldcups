@@ -1,4 +1,5 @@
 // query functions들 선언하시고 export 하시면 됩니다!
+import axios from 'axios';
 import { addDoc, collection, getDocs, query } from 'firebase/firestore';
 import { db } from 'firebaseStore/firebaseConfig';
 
@@ -30,4 +31,9 @@ export const addWorldCup = async (newWorldCup) => {
   } catch (error) {
     console.error('새로운 월드컵 추가 실패!', error);
   }
+};
+
+// 삭제하기
+const deleteWorldCupList = async (userMail) => {
+  await axios.delete(`${URL}/worldCupList`, userMail);
 };

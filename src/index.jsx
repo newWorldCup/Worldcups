@@ -8,17 +8,16 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider } from 'react-redux';
 import store from 'worldCupRedux/config/configStore';
 
-const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <QueryClientProvider client={queryClient}>
+  <>
     <Provider store={store}>
       {/* <React.StrictMode> */}
       <App />
       {/* </React.StrictMode> */}
     </Provider>
     <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function
