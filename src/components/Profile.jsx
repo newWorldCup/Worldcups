@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import YouTube from 'react-youtube';
 import { db } from 'firebaseStore/firebaseConfig';
-import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import styled from 'styled-components';
 
 function Profile() {
   const [userMail, setUserMail] = useState(null);
@@ -19,14 +20,16 @@ function Profile() {
         setUserMail(null);
       }
     });
+    // (db, 'worldCupList'), where('userId', '==', userMail)  조건 추가 지금은 아이디 맞는게 없어서 못씀
     const fetchData = async () => {
       try {
         // userId가 아직 "추가예정"이라 되는지 모르겠음
         const q = query(collection(db, 'worldCupList'), where('userId', '==', userMail));
         // getDoc인지 getDocs인지;;
-        const querySnapshot = await getDoc(q);
+        const querySnapshot = await getDocs(q);
         const data = querySnapshot.docs.map((doc) => doc.data());
         setWorldCupList(data);
+        console.log(data);
       } catch (error) {
         console.error('Error fetching documents:', error);
       }
@@ -37,28 +40,86 @@ function Profile() {
     }
   }, [userMail]);
 
+  const onDeleteClick = async (uid) => {
+    try {
+      await deleteDoc(doc(db, 'worldCupList', uid));
+      setWorldCupList((prevWorldCupList) => prevWorldCupList.filter((worldCup) => worldCup.uid !== uid));
+    } catch (error) {
+      console.error('Error deleting document:', error);
+    }
+  };
+  const opts = {
+    height: '390',
+    width: '640'
+  };
+
   return (
-    <div>
-      <h2>{userMail}</h2>
+    <>
       {worldCupList.map((worldCup) => (
-        <div key={worldCup.id}>
+        <ProfileWrap key={worldCup.uid}>
           <div>
-            <span>
-              {nickname}님의 {worldCup.worldCupTitle}
-            </span>
+            <MyPageTitle>
+              {nickname}님의 &nbsp;
+              <MainColorSpan>{worldCup.worldCupTitle}</MainColorSpan>
+            </MyPageTitle>
           </div>
-          <div>
+          <VideoContainer>
+            <DeleteBtn onClick={() => onDeleteClick(worldCup.uid)}>삭제하기</DeleteBtn>
             {worldCup.videoList.map((video) => (
               <div key={video.videoId}>
-                <h2>{video.videoTitle}</h2>
-                <YouTube videoId={video.videoId} width="400px" height="300px" />
+                <YouTube videoId={video.videoId} opts={opts} />
+                <VideoTitle>{video.videoTitle}</VideoTitle>
               </div>
             ))}
-          </div>
-        </div>
+          </VideoContainer>
+        </ProfileWrap>
       ))}
-    </div>
+    </>
   );
 }
 
 export default Profile;
+
+// overflow: hidden;
+// text-overflow: ellipsis;
+const ProfileWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  align-items: center;
+  width: 100%;
+`;
+
+const MyPageTitle = styled.p`
+  font-size: 30px;
+  margin-bottom: 50px;
+`;
+const MainColorSpan = styled.span`
+  color: var(--main-color);
+`;
+
+const VideoContainer = styled.div`
+  width: 640px;
+`;
+
+const DeleteBtn = styled.button`
+  margin-bottom: 50px;
+  padding: 15px 20px;
+  background-color: #ff0000;
+  border: 0;
+  color: #fff;
+  margin-left: 550px;
+`;
+
+const VideoTitle = styled.h2`
+  width: 100%;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: var(--main-color);
+  padding: 30px;
+  color: #fff;
+`;
