@@ -22,6 +22,7 @@ function Profile() {
 
   return (
     <div>
+      <h2>{userMail}</h2>
       {/* {filterWorldCupList?.map((item) => {
         return (
           <>
