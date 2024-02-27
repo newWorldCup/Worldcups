@@ -12,10 +12,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 import useFormInput from 'components/common/useFormInput';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth } from 'firebaseStore/firebaseConfig';
+import { auth, db } from 'firebaseStore/firebaseConfig';
 import { useState } from 'react';
 import googleIcon from '../../assets/free-icon-google-300221.png';
 import githubIcon from '../../assets/free-icon-github-logo-25231.png';
+import { doc, getDoc } from 'firebase/firestore';
 
 const SignInPage = () => {
   const [userData, setUserData] = useState(null);
@@ -49,7 +50,11 @@ const SignInPage = () => {
     if (inputValidate()) {
       try {
         const signIn = await signInWithEmailAndPassword(auth, email.value, password.value);
-        console.log(signIn);
+        const user = signIn.user;
+        const userRef = doc(db, 'users', user.uid); //user컬렉션의 해당유저의 uid 데이터를 가져옵니다.
+        const userSnap = await getDoc(userRef); //문서 가져오는 로직입니다.
+        localStorage.setItem('email', JSON.stringify(userSnap.data().email));
+        localStorage.setItem('nickname', JSON.stringify(userSnap.data().nickname));
         localStorage.setItem('uid', JSON.stringify(signIn.user.uid));
         localStorage.setItem('token', JSON.stringify(signIn.user.accessToken));
         navigate('/', { replace: true });

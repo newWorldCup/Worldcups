@@ -13,7 +13,6 @@ const NonAuthLayout = () => {
   }
   return (
     <div>
-      <h1>Non Auth Layout 구분용 임시 텍스트.</h1>
       <main>
         <Outlet />
       </main>
