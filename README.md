@@ -1,5 +1,5 @@
 
-# BOOKIE : 월드컵 만들기 페이지
+# My Worldcup : 월드컵 만들기 페이지
 
 - 배포 URL :
 - Test ID : test@test.com
