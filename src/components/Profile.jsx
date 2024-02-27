@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 import { db } from 'firebaseStore/firebaseConfig';
-import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore';
 import {
   DeleteBtn,
   MainColorSpan,
