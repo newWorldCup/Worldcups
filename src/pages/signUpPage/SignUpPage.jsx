@@ -18,6 +18,7 @@ const SignUpPage = () => {
   const password = useFormInput('');
   const nickname = useFormInput(''); //커스텀훅value 자리에 password 들어갑니다
   const navigate = useNavigate();
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       console.log('user', user); // 사용자 인증 정보가 변경될 때마다 해당 이벤트를 받아 처리합니다.
