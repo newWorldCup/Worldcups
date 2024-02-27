@@ -7,7 +7,7 @@ import {
   StyledBtn,
   StyledInput,
   StyledP
-} from '../../styles/StyledSign';
+} from 'styles/StyledSign';
 import { useNavigate } from 'react-router-dom';
 import useFormInput from 'components/common/useFormInput';
 import { signInWithEmailAndPassword } from 'firebase/auth';
