@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
+import { auth } from 'firebaseStore/firebaseConfig';
 import { useSelector } from 'react-redux';
-import { getWorldCups } from '../api/queryFns';
+import { getWorldCups } from 'api/queryFns';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import SearchList from 'components/HomeComponents/SearchList';
