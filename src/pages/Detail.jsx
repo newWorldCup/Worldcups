@@ -10,7 +10,7 @@ import {
   WorldcupVideoTitle,
   WorldcupSeletButton
 } from 'styles/StyledDetail';
-import { db } from 'worldCupRedux/config/firebaseConfig';
+import { db } from 'firebaseStore/firebaseConfig';
 import YouTube from 'react-youtube';
 
 const Detail = () => {
