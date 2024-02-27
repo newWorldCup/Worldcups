@@ -28,7 +28,7 @@ export const WorldcupVideoTitle = styled.p`
   font-size: 18px;
 `;
 
-export const WorldcupSeletButton = styled.button`
+export const WorldcupSelectButton = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
