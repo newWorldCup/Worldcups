@@ -4,7 +4,7 @@ import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from 'firebaseStore/firebaseConfig';
 import useFormInput from 'components/common/useFormInput';
 
-import { InputDiv, BoxContentDiv, SemiContentDiv, ContentDiv, BoxDiv, InfoDiv } from 'styles/StyledSearchList';
+import { InputDiv, BoxContentDiv, ContentDiv, BoxDiv, InfoDiv } from 'styles/StyledSearchList';
 
 const SearchList = () => {
   const navigate = useNavigate();
@@ -44,7 +44,6 @@ const SearchList = () => {
     }
   }, [searchTitle.value]);
 
-  console.log(cups);
   return (
     <>
       <InputDiv>
