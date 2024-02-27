@@ -14,15 +14,16 @@ import {
 
 function Profile() {
   const [worldCupList, setWorldCupList] = useState([]);
-  const userMail = localStorage.getItem('email');
+  const userMail = JSON.parse(localStorage.getItem('email'));
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const q = query(collection(db, 'worldCupList'), where('userId', '==', userMail));
+        const q = query(collection(db, 'worldCupList'));
         const querySnapshot = await getDocs(q);
         const data = querySnapshot.docs.map((doc) => doc.data());
-        setWorldCupList(data);
+        const filterData = data.filter((item) => item.userId === userMail);
+        setWorldCupList(filterData);
       } catch (error) {
         console.error('Error fetching documents:', error);
       }
