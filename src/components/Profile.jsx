@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-// import YouTube from 'react-youtube';
+import { getDocs } from '@firebase/firestore';
+import YouTube from 'react-youtube';
+import { db } from 'firebaseStore/firebaseConfig';
 
 function Profile() {
   const [userMail, setUserMail] = useState(null);
+  // 변수 어떻게 해야 하는지
+  const dataGetFunction = async () => {
+    const data = await getDocs(db, 'worldCupList');
+    return data;
+  };
 
   useEffect(() => {
     const auth = getAuth();
@@ -14,38 +21,35 @@ function Profile() {
         setUserMail(null);
       }
     });
+    dataGetFunction();
   }, []);
+  const { data } = dataGetFunction();
+
+  const filterWorldCupList = data?.filter((item) => item.userId === userMail);
 
   return (
     <div>
-      {/* {filterWorldCupList?.map((item) => {
+      <h2>{userMail}</h2>
+      {filterWorldCupList?.map((item) => {
         return (
           <>
             <div>
-              <div>
+              {/* <div>
                 <img src={item.avatar} alt="profileImg" />
-              </div>
+              </div> */}
               <span>{userMail}님의 WorldCup-List</span>
             </div>
             <div>
               <h2>{item.videoTitle}</h2>
-              <ul onClick={onClickDelete}>
+              <ul>
                 <li key={item.videoId}>
-                  <YouTube
-                    videoId={item.videoId}
-                    width="400px"
-                    height="300px"
-                    playing={true}
-                    muted={true}
-                    controls={true}
-                    loop={true}
-                  />
+                  <YouTube videoId={item.videoId} width="400px" height="300px" />
                 </li>
               </ul>
             </div>
           </>
         );
-      })} */}
+      })}
     </div>
   );
 }
