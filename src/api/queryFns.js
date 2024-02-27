@@ -32,8 +32,3 @@ export const addWorldCup = async (newWorldCup) => {
     console.error('새로운 월드컵 추가 실패!', error);
   }
 };
-
-// 삭제하기
-const deleteWorldCupList = async (userMail) => {
-  await axios.delete(`${URL}/worldCupList`, userMail);
-};
