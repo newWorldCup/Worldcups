@@ -12,9 +12,6 @@ const MakeWorldCup = () => {
   const [makeingWorldCup, setMakingWorldCup] = useState(false);
   const rawUid = localStorage.getItem('uid');
   const uid = rawUid ? JSON.parse(rawUid) : '';
-  // const rawVideoList = localStorage.getItem(`videoList${uid}`);
-  // const parsedList = rawVideoList ? JSON.parse(rawVideoList) : [];
-  // const [videoList, setVideoList] = useState(parsedList);
   const videoList = useSelector((state) => state.videoListSlice);
 
   const dispatch = useDispatch();

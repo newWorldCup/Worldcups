@@ -11,21 +11,29 @@ import {
 } from 'styles/StyledDetail';
 import { db } from 'firebaseStore/firebaseConfig';
 import YouTube from 'react-youtube';
+import { useParams } from 'react-router-dom';
 
 const Detail = () => {
   const [worldcupItems, setWorldcupItems] = useState([]);
   const [displays, setDisplays] = useState([]);
   const [winners, setWinners] = useState([]);
+  const [round, setRound] = useState(8);
+  const { id } = useParams();
+  const [worldcupTitle, setWorldcupTitle] = useState('');
 
   useEffect(() => {
     const fetchItems = async () => {
-      const itemRef = doc(db, 'worldCupList', 'RRPylps6Fswft1YhNNfV');
+      const itemRef = doc(db, 'worldCupList', id);
       // 문서 ID는 자동으로 생성된 부분이라 나중에 리스트에서 클릭한 문서의 ID를 가져올 수 있도록 변경해야함
       const docData = await getDoc(itemRef);
 
+      console.log('데이터', docData);
+
       if (docData.exists()) {
         let videoList = docData.data().videoList;
+        let worldcupGameTitle = docData.data().worldCupTitle;
         videoList.sort(() => Math.random() - 0.5);
+        setWorldcupTitle(worldcupGameTitle);
         setWorldcupItems(videoList);
         setDisplays(videoList.slice(0, 2));
       } else {
@@ -36,35 +44,34 @@ const Detail = () => {
     fetchItems();
   }, []);
 
+  useEffect(() => {
+    // 라운드 업데이트 시 새로운 라운드 시작 (승자 배열에서 다시 뽑기)
+    if (winners.length === round / 2 && round > 1) {
+      const newRound = round / 2;
+      setRound(newRound);
+      setWorldcupItems(winners);
+      setWinners([]);
+      setDisplays(winners.slice(0, 2));
+    } else if (round === 1 && winners.length === 1) {
+      // 최종 승자가 결정됐을 때
+      setDisplays(winners);
+    }
+  }, [winners, round]);
+
   const clickHandler = (selectedItem) => () => {
-    setWinners((prevWinners) => {
-      // 중복된 아이템이 없도록 업데이트
-      const updatedWinners = prevWinners.includes(selectedItem) ? prevWinners : [...prevWinners, selectedItem];
-      return updatedWinners;
-    });
+    const newItems = worldcupItems.filter((item) => item !== selectedItem);
+    setWorldcupItems(newItems); // 선택되지 않은 아이템 제거
 
-    setWorldcupItems((prevItems) => {
-      // 선택된 아이템을 제외한 새로운 리스트 생성
-      const newItems = prevItems.filter((item) => item !== selectedItem);
-      return newItems;
-    });
-
-    setDisplays((prevDisplays) => {
-      // 이전 worldcupItems에서 현재 선택된 아이템을 제외한 새로운 배열
-      const newRemainingItems = worldcupItems.filter((item) => item !== selectedItem && !winners.includes(item));
-
-      if (newRemainingItems.length > 1) {
-        // 남은 항목들 중에서 랜덤으로 2개를 선택하여 displays에 세팅
-        const shuffledRemainingItems = newRemainingItems.sort(() => Math.random() - 0.5);
-        return shuffledRemainingItems.slice(0, 2);
-      } else if (newRemainingItems.length === 1) {
-        // 마지막 남은 항목을 displays에 세팅
-        return newRemainingItems;
-      } else {
-        // 모든 선택이 끝났을 때, 최종 승자 표시
-        return [selectedItem];
-      }
-    });
+    if (newItems.length === 1 && round > 2) {
+      // 마지막 아이템이고 아직 결승전이 아닌 경우
+      setWinners((prevWinners) => [...prevWinners, selectedItem]);
+    } else if (round === 2 || (round === 1 && newItems.length === 0)) {
+      // 4강 또는 결승
+      setWinners((prevWinners) => [...prevWinners, selectedItem]);
+    } else {
+      // 다음 표시될 두 아이템 설정
+      setDisplays(newItems.slice(0, 2));
+    }
   };
 
   /** react-youtube 옵션 설정 */
@@ -77,7 +84,7 @@ const Detail = () => {
 
   return (
     <WorldcupGame>
-      <WorldcupTitle>My Worldcup Game</WorldcupTitle>
+      <WorldcupTitle>{worldcupTitle}</WorldcupTitle>
       <WorldcupVideoList>
         {displays.map((video) => (
           <WorldcupVideo key={video.videoId}>
@@ -87,6 +94,7 @@ const Detail = () => {
           </WorldcupVideo>
         ))}
       </WorldcupVideoList>
+      {round === 1 && winners.length === 1 && <div>최종 우승자는 {winners[0].videoTitle}입니다!</div>}
     </WorldcupGame>
   );
 };
