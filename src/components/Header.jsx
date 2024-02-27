@@ -46,7 +46,7 @@ const Header = () => {
       navigate('/signin');
       removeHandler(`videoList${uid}`);
       removeHandler('uid');
-      removeHandler('accessToken');
+      removeHandler('token');
       // localStorage.removeItem(`videoList${uid}`);
       // localStorage.removeItem('uid');
       // localStorage.removeItem('accessToken');
