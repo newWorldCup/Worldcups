@@ -8,7 +8,7 @@ export const HeaderStyle = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
-  z-index: 100;
+  z-index: 1;
 `;
 
 export const HeaderContainer = styled.div`
@@ -18,6 +18,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
 `;
 
 export const LogoImg = styled.img`

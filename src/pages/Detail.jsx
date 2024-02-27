@@ -69,7 +69,7 @@ const Detail = () => {
 
   /** react-youtube 옵션 설정 */
   const opts = {
-    height: '500',
+    height: '600',
     playerVars: {
       autoplay: 0
     }

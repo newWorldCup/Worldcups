@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { HeaderStyle, HeaderContainer, LogoImg, MenuButton, TestBox, HeaderLine, SizedBox } from 'styles/StyledHeader';
+import { HeaderStyle, HeaderContainer, LogoImg, MenuButton, HeaderLine } from 'styles/StyledHeader';
 import testLogo from 'assets/testlogo3.png';
+
 import { auth } from 'firebaseStore/firebaseConfig';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import HeaderMargin from 'components/HeaderMargin';
 const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
@@ -65,7 +67,8 @@ const Header = () => {
             position: 'absolute',
             width: '100%',
             justifyContent: 'center',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            backgroundColor: '#ffffff'
           }}
         >
           <center>
@@ -76,7 +79,7 @@ const Header = () => {
           <HeaderLine />
         </div>
       </HeaderStyle>
-      <TestBox />
+      <HeaderMargin />
     </>
   );
 };
