@@ -18,17 +18,22 @@ const Detail = () => {
   const [displays, setDisplays] = useState([]);
   const [winners, setWinners] = useState([]);
   const [round, setRound] = useState(8);
-  const { worldcupId } = useParams();
+  const { id } = useParams();
+  const [worldcupTitle, setWorldcupTitle] = useState('');
 
   useEffect(() => {
     const fetchItems = async () => {
-      const itemRef = doc(db, 'worldCupList', worldcupId);
+      const itemRef = doc(db, 'worldCupList', id);
       // 문서 ID는 자동으로 생성된 부분이라 나중에 리스트에서 클릭한 문서의 ID를 가져올 수 있도록 변경해야함
       const docData = await getDoc(itemRef);
 
+      console.log('데이터', docData);
+
       if (docData.exists()) {
         let videoList = docData.data().videoList;
+        let worldcupGameTitle = docData.data().worldCupTitle;
         videoList.sort(() => Math.random() - 0.5);
+        setWorldcupTitle(worldcupGameTitle);
         setWorldcupItems(videoList);
         setDisplays(videoList.slice(0, 2));
       } else {
@@ -79,7 +84,7 @@ const Detail = () => {
 
   return (
     <WorldcupGame>
-      <WorldcupTitle>My Worldcup Game</WorldcupTitle>
+      <WorldcupTitle>{worldcupTitle}</WorldcupTitle>
       <WorldcupVideoList>
         {displays.map((video) => (
           <WorldcupVideo key={video.videoId}>
