@@ -1,5 +1,4 @@
-import { collection, doc, getDoc, getDocs } from '@firebase/firestore';
-import { set } from 'lodash';
+import { doc, getDoc } from '@firebase/firestore';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import {
