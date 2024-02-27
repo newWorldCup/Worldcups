@@ -1,18 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
-import { useMutation, QueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 // import YouTube from 'react-youtube';
 
 function Profile() {
-  // const {data} = useQuery(["worldCupList" ] , getWorldCupList);
-  // const mutation = useMutation(deleteWorldCupList, {
-  //   onSuccess: () => {
-  //     QueryClient.invalidateQueries("worldCupList")
-  //   }
-  // });
-  const navigate = useNavigate();
   const [userMail, setUserMail] = useState(null);
 
   useEffect(() => {
@@ -25,12 +15,6 @@ function Profile() {
       }
     });
   }, []);
-
-  // const filterWorldCupList = data?.filter((item) => item.userId === userMail);
-
-  const onClickDelete = () => {
-    // mutation.mutate(data.id);
-  };
 
   return (
     <div>
