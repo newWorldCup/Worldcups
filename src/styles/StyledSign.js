@@ -36,18 +36,18 @@ export const StyledButtons = styled.div`
   width: 700px;
   height: 100px;
   border: 1px solid transparent;
-  border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  border-bottom: 2px solid black;
 `;
 
 export const StyledBtn = styled.button`
   border: 1px solid white;
   border-radius: 10px;
-  background-color: gray;
+  background-color: black;
   width: 200px;
   height: 50px;
   color: white;
@@ -73,10 +73,19 @@ export const StyledP = styled.p`
 `;
 
 export const StyledSocialBtns = styled.div`
-  border-top: 2px solid black;
-  width: 680px;
-  height: 50px;
+  width: 100%;
+  height: 100px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+`;
+export const StyledSocialBtn = styled.button`
+  margin: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-size: cover;
+  background-position: center;
+  background-image: ${({ $imageUrl }) => `url(${$imageUrl})`};
 `;
