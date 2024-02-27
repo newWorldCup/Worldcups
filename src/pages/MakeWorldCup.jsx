@@ -66,7 +66,7 @@ const MakeWorldCup = () => {
     if (searchword) {
       try {
         const { data } = await axios.get(
-          `${url}/search?part=snippet&maxResults=8&q=${searchword}&key=AIzaSyCz0moHjm4tSh2cd0z2lhvcgTJyXpQSW4I`
+          `${url}/search?part=snippet&maxResults=1&q=${searchword}&key=AIzaSyCz0moHjm4tSh2cd0z2lhvcgTJyXpQSW4I`
         );
         console.log(data);
         dispatch(addSearchList(data));
