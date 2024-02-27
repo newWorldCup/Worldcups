@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { HeaderStyle, HeaderContainer, LogoImg, MenuButton, HeaderLine } from 'styles/StyledHeader';
 import testLogo from 'assets/testlogo3.png';
+
+import { auth } from 'firebaseStore/firebaseConfig';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+
 import HeaderMargin from 'components/HeaderMargin';
 
 const Header = () => {
+  const navigate = useNavigate();
   const [logoWidth, setLogoWidth] = useState('100%');
   const [logoHeight, setLogoHeight] = useState('100%');
   const [logoMargin, setLogoMargin] = useState('60px 0px 0px 0px');
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -26,6 +31,17 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  const logoutHandler = async () => {
+    try {
+      await signOut(auth);
+      alert('로그아웃 되었습니다.');
+      navigate('/signin');
+      localStorage.removeItem('uid');
+      localStorage.removeItem('accessToken');
+    } catch (error) {
+      console.error('로그아웃 실패', error);
+    }
+  };
 
   return (
     <>
@@ -37,7 +53,7 @@ const Header = () => {
           </div>
           <div>
             <MenuButton to="/mypage">Mypage</MenuButton>
-            <MenuButton>Logout</MenuButton>
+            <MenuButton onClick={logoutHandler}>Logout</MenuButton>
           </div>
         </HeaderContainer>
         {/* 아래 스타일을 스타일 컴포넌트화 시켜서 넣으면 제대로 작동안하는 이슈가 있어 빼서 작성  */}
