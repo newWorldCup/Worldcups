@@ -1,12 +1,12 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Detail from 'pages/Detail';
 import SignInPage from 'pages/signInPage/SignInPage';
+import Detail from 'pages/Detail';
 import Main from 'pages/Main';
 import Mypage from 'pages/Mypage';
+import MakeWorldCup from 'pages/MakeWorldCup';
 import SignUpPage from 'pages/signUpPage/SignUpPage';
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { setIsLogin } from '../redux/modules/authSlice';
 
 function Router() {
@@ -23,6 +23,7 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/makeWorldCup" element={<MakeWorldCup />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/mypage" element={<Mypage />} />

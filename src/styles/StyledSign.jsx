@@ -1,24 +1,24 @@
 import styled from 'styled-components';
-export const StyledPage = styled.div`
-  width: 100%;
-  height: 500px;
-  background-color: white;
-`;
+
 export const StyledSignUi = styled.form`
   width: 740px;
-  height: 600px;
+  height: 1000px;
   margin: 50px auto 50px auto;
   background-color: white;
-  border: 1px solid black;
   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 0;
 `;
 export const StyledTitle = styled.div`
-  width: 700px;
+  margin-top: 0px;
+  border-bottom: 2px solid black;
+  width: 660px;
   height: 30px;
-  border: 1px solid transparent;
-  border-radius: 15px;
-  color: black;
   font-size: 20px;
+  font-weight: 2000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,8 +27,6 @@ export const StyledTitle = styled.div`
 export const StyledInputs = styled.div`
   width: 700px;
   height: 250px;
-  border: 1px solid transparent;
-  border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,6 +56,7 @@ export const StyledBtn = styled.button`
   margin-bottom: 20px;
   &:hover {
     cursor: pointer;
+    background-color: red;
   }
 `;
 export const StyledInput = styled.input`
@@ -72,4 +71,13 @@ export const StyledP = styled.p`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const StyledSocialBtns = styled.div`
+  border-top: 2px solid black;
+  width: 680px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 `;
