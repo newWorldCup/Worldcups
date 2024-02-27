@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from 'firebaseStore/firebaseConfig';
 import useFormInput from 'components/common/useFormInput';
 
-import { InputDiv, SemiContentDiv, ContentDiv, BoxDiv, InfoDiv } from 'styles/StyledSearchList';
+import { InputDiv, BoxContentDiv, SemiContentDiv, ContentDiv, BoxDiv, InfoDiv } from 'styles/StyledSearchList';
 
 const SearchList = () => {
+  const navigate = useNavigate();
   const [cups, setCups] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   // const [searchTitle.value, setSearchTitle] = useState('');
@@ -19,7 +20,7 @@ const SearchList = () => {
       const querySnapshot = await getDocs(q);
 
       const initialWorldCupList = [];
-
+      console.log(querySnapshot);
       querySnapshot.forEach((doc) => {
         const data = {
           id: doc.id,
@@ -35,53 +36,58 @@ const SearchList = () => {
 
   useEffect(() => {
     if (searchTitle.value !== '') {
-      setFilteredData(cups.filter((data) => data.title.toLowerCase().includes(searchTitle.value.toLowerCase())));
+      setFilteredData(
+        cups.filter((data) => data.worldCupTitle.toLowerCase().includes(searchTitle.value.toLowerCase()))
+      );
     } else {
       setFilteredData([]);
     }
   }, [searchTitle.value]);
-  // filter대신 firebase안의 where메소드 사용하여 대신해 보기
 
-  // const { isLoading, error, data } = useQuery({ queryKey: ['worldCupList'], queryFn: getWorldCups });
-
-  // if (isLoading) {
-  //   return <div>로딩중...</div>;
-  // }
-
-  // if (isError) {
-  //   return <div>오류 발생</div>;
-  // }
-
-  // const onChangeSearchItems = (e) => {
-  //   setSearchTitle(e.target.value);
-  // };
-
+  console.log(cups);
   return (
     <>
       <InputDiv>
         {' '}
         검색창:&nbsp;
-        <input placeholder="제목을 입력해 주세요." value={searchTitle.value} onChange={searchTitle.onChange} />
+        <input
+          style={{ width: '400px', height: '35px', fontSize: '35px' }}
+          placeholder="제목을 입력해 주세요."
+          size="40"
+          value={searchTitle.value}
+          onChange={searchTitle.onChange}
+        />
       </InputDiv>
       <ContentDiv>
         {searchTitle.value === ''
           ? cups.map((itemList) => {
               return (
-                <BoxDiv style={{ backgroundImage: `url(${itemList.thumbNail})` }} key={itemList.id}>
+                <BoxContentDiv>
+                  <BoxDiv
+                    style={{ backgroundImage: `url(${itemList.videoList[0].thumbNailUrl})` }}
+                    key={itemList.id}
+                    onClick={() => navigate(`/detail/${itemList.id}`)}
+                  ></BoxDiv>
                   <InfoDiv>
-                    <h3>{itemList.title}</h3>
-                    <p>{itemList.createAt}</p>
+                    <h3>제목:&nbsp;{itemList.worldCupTitle}</h3>
                     <p>작성자:&nbsp;{itemList.userId}</p>
                   </InfoDiv>
-                </BoxDiv>
+                </BoxContentDiv>
               );
             })
           : filteredData.map((itemList) => {
-              console.log(itemList);
               return (
-                <BoxDiv style={{ backgroundImage: `url(${itemList.thumbNail})` }} key={itemList.id}>
-                  <InfoDiv>{itemList.title}</InfoDiv>
-                </BoxDiv>
+                <BoxContentDiv>
+                  <BoxDiv
+                    style={{ backgroundImage: `url(${itemList.videoList[0].thumbNailUrl})` }}
+                    key={itemList.id}
+                    onClick={() => navigate(`/detail/${itemList.id}`)}
+                  ></BoxDiv>
+                  <InfoDiv>
+                    <h3>제목:&nbsp;{itemList.worldCupTitle}</h3>
+                    <p>작성자:&nbsp;{itemList.userId}</p>
+                  </InfoDiv>
+                </BoxContentDiv>
               );
             })}
       </ContentDiv>
