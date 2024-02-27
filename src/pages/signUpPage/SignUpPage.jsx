@@ -30,6 +30,11 @@ const SignUpPage = () => {
       alert('아이디와 비밀번호,닉네임을 모두 입력하세요');
       return false;
     }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,15}$/;
+    if (!passwordRegex.test(password.value)) {
+      alert('비밀번호는 6~15글자이며,최소 하나의 문자,숫자,특수문자를 포함해야 합니다!');
+      return false;
+    }
     return true;
   };
   //firebase api 회원가입 연결
