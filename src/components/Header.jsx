@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { HeaderStyle, HeaderContainer, LogoImg, MenuButton, TestBox, HeaderLine, SizedBox } from 'styles/StyledHeader';
+import { HeaderStyle, HeaderContainer, LogoImg, MenuButton, HeaderLine } from 'styles/StyledHeader';
 import testLogo from 'assets/testlogo3.png';
+
 import { auth } from 'firebaseStore/firebaseConfig';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+
+import HeaderMargin from 'components/HeaderMargin';
+
 const Header = () => {
   const navigate = useNavigate();
   const [logoWidth, setLogoWidth] = useState('100%');
@@ -59,7 +63,8 @@ const Header = () => {
             position: 'absolute',
             width: '100%',
             justifyContent: 'center',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            backgroundColor: '#ffffff'
           }}
         >
           <center>
@@ -70,7 +75,7 @@ const Header = () => {
           <HeaderLine />
         </div>
       </HeaderStyle>
-      <TestBox />
+      <HeaderMargin />
     </>
   );
 };
