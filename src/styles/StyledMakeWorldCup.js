@@ -40,7 +40,7 @@ export const TitleForm = styled.form`
   }
 `;
 
-export const WorldCupTitle = styled.div`
+export const WorldCupTitleForm = styled.form`
   display: flex;
   align-items: center;
   justify-content: flex-end;
