@@ -6,12 +6,6 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 // import YouTube from 'react-youtube';
 
 function Profile() {
-  // const {data} = useQuery(["worldCupList" ] , getWorldCupList);
-  // const mutation = useMutation(deleteWorldCupList, {
-  //   onSuccess: () => {
-  //     QueryClient.invalidateQueries("worldCupList")
-  //   }
-  // });
   const navigate = useNavigate();
   const [userMail, setUserMail] = useState(null);
 
@@ -26,11 +20,7 @@ function Profile() {
     });
   }, []);
 
-  // const filterWorldCupList = data?.filter((item) => item.userId === userMail);
-
-  const onClickDelete = () => {
-    // mutation.mutate(data.id);
-  };
+  const onClickDelete = () => {};
 
   return (
     <div>
