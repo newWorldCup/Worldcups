@@ -9,6 +9,7 @@ import Main from 'pages/Main';
 import MyPage from 'pages/Mypage';
 import MakeWorldCup from 'pages/MakeWorldCup';
 import SignUpPage from 'pages/signUpPage/SignUpPage';
+
 function Router() {
   return (
     <BrowserRouter>
