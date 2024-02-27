@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -15,7 +14,6 @@ root.render(
       <App />
       {/* </React.StrictMode> */}
     </Provider>
-    <ReactQueryDevtools initialIsOpen={false} />
   </>
 );
 
