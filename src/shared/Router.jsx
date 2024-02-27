@@ -28,9 +28,9 @@ function Router() {
         {/* 로그인 상태면 안되는 페이지 : 로그인페이지 */}
         <Route element={<NonAuthLayout />}>
           <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
         </Route>
         <Route path="*" element={<div>Not Found</div>} />
-        <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </BrowserRouter>
   );
