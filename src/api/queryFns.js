@@ -1,6 +1,6 @@
 // query functions들 선언하시고 export 하시면 됩니다!
 import { addDoc, collection, getDocs, query } from 'firebase/firestore';
-import { db } from 'worldCupRedux/config/firebaseConfig';
+import { db } from 'firebaseStore/firebaseConfig';
 
 export const fetchWorldCupList = async () => {
   try {
