@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { HeaderStyle, HeaderContainer, LogoImg, MenuButton, TestBox, HeaderLine, SizedBox } from 'styles/StyledHeader';
+import { HeaderStyle, HeaderContainer, LogoImg, MenuButton, HeaderLine } from 'styles/StyledHeader';
 import testLogo from 'assets/testlogo3.png';
 import HeaderMargin from 'components/HeaderMargin';
 
