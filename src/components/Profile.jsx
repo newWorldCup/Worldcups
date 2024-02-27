@@ -6,6 +6,7 @@ import { db } from 'firebaseStore/firebaseConfig';
 
 function Profile() {
   const [userMail, setUserMail] = useState(null);
+  // 변수 어떻게 해야 하는지
   const dataGetFunction = async () => {
     const data = await getDocs(db, 'worldCupList');
     return data;
