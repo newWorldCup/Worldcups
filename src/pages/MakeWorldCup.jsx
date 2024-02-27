@@ -82,7 +82,7 @@ const MakeWorldCup = () => {
     if (searchword) {
       try {
         const { data } = await axios.get(
-          `${url}/search?part=snippet&maxResults=1&q=${searchword}&key=AIzaSyCz0moHjm4tSh2cd0z2lhvcgTJyXpQSW4I`
+          `${url}/search?part=snippet&maxResults=3&q=${searchword}&key=AIzaSyCz0moHjm4tSh2cd0z2lhvcgTJyXpQSW4I`
         );
         dispatch(addSearchList(data));
         setSearchWord('');
