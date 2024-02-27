@@ -2,8 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import YouTube from 'react-youtube';
 import { db } from 'firebaseStore/firebaseConfig';
-import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
-import styled from 'styled-components';
+import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
+import {
+  DeleteBtn,
+  MainColorSpan,
+  MyPageTitle,
+  ProfileTitle,
+  ProfileWrap,
+  VideoContainer,
+  VideoTitle
+} from 'styles/StyledProfile';
 
 function Profile() {
   const [userMail, setUserMail] = useState(null);
@@ -48,13 +56,14 @@ function Profile() {
       console.error('Error deleting document:', error);
     }
   };
-  const opts = {
-    height: '390',
-    width: '640'
-  };
 
   return (
     <>
+      <ProfileTitle>
+        <p>
+          {nickname}님의 <MainColorSpan>WorldCupList</MainColorSpan>
+        </p>
+      </ProfileTitle>
       {worldCupList.map((worldCup) => (
         <ProfileWrap key={worldCup.uid}>
           <div>
@@ -67,7 +76,7 @@ function Profile() {
             <DeleteBtn onClick={() => onDeleteClick(worldCup.uid)}>삭제하기</DeleteBtn>
             {worldCup.videoList.map((video) => (
               <div key={video.videoId}>
-                <YouTube videoId={video.videoId} opts={opts} />
+                <YouTube videoId={video.videoId} />
                 <VideoTitle>{video.videoTitle}</VideoTitle>
               </div>
             ))}
@@ -79,47 +88,3 @@ function Profile() {
 }
 
 export default Profile;
-
-// overflow: hidden;
-// text-overflow: ellipsis;
-const ProfileWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 50px;
-  align-items: center;
-  width: 100%;
-`;
-
-const MyPageTitle = styled.p`
-  font-size: 30px;
-  margin-bottom: 50px;
-`;
-const MainColorSpan = styled.span`
-  color: var(--main-color);
-`;
-
-const VideoContainer = styled.div`
-  width: 640px;
-`;
-
-const DeleteBtn = styled.button`
-  margin-bottom: 50px;
-  padding: 15px 20px;
-  background-color: #ff0000;
-  border: 0;
-  color: #fff;
-  margin-left: 550px;
-`;
-
-const VideoTitle = styled.h2`
-  width: 100%;
-  font-size: 20px;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background-color: var(--main-color);
-  padding: 30px;
-  color: #fff;
-`;
