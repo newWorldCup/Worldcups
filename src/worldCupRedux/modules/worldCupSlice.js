@@ -8,13 +8,10 @@ const worldCupSListlice = createSlice({
   reducers: {
     getWorldCup: (state, action) => {
       return [action.payload];
-    },
-    plusworldCup: (state, action) => {
-      return [...state, action.payload];
     }
   }
 });
 
-export const { getWorldCup, plusworldCup } = worldCupSListlice.actions;
+export const { getWorldCup } = worldCupSListlice.actions;
 
 export default worldCupSListlice.reducer;
