@@ -53,7 +53,6 @@ const SearchList = () => {
     }
   }, [searchTitle.value]);
 
-  console.log(cups);
   return (
     <SearchListContainer>
       <InputDiv>
@@ -65,10 +64,9 @@ const SearchList = () => {
         {searchTitle.value === ''
           ? cups.map((itemList) => {
               return (
-                <BoxContentDiv>
+                <BoxContentDiv key={itemList.id}>
                   <BoxDiv
                     style={{ backgroundImage: `url(${itemList.videoList[0].thumbNailUrl})` }}
-                    key={itemList.id}
                     onClick={() => navigate(`/detail/${itemList.id}`)}
                   ></BoxDiv>
                   <InfoDiv>
@@ -80,10 +78,9 @@ const SearchList = () => {
             })
           : filteredData.map((itemList) => {
               return (
-                <BoxContentDiv>
+                <BoxContentDiv key={itemList.id}>
                   <BoxDiv
                     style={{ backgroundImage: `url(${itemList.videoList[0].thumbNailUrl})` }}
-                    key={itemList.id}
                     onClick={() => navigate(`/detail/${itemList.id}`)}
                   ></BoxDiv>
                   <InfoDiv>
