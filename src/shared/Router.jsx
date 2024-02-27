@@ -2,7 +2,7 @@ import Detail from 'pages/Detail';
 import SignInPage from 'pages/signInPage/SignInPage';
 import Main from 'pages/Main';
 import MakeWorldCup from 'pages/MakeWorldCup';
-import MyPage from 'pages/MyPage';
+import MyPage from 'pages/Mypage';
 import SignUpPage from 'pages/signUpPage/SignUpPage';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
