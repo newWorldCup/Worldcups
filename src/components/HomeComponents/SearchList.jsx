@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { collection, getDocs, query } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../firebaseStore/firebaseConfig';
 import useFormInput from 'components/common/useFormInput';
 const SearchList = () => {
   const [cups, setCups] = useState([]);
