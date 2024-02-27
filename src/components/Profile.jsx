@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useMutation, QueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+// import YouTube from 'react-youtube';
 
 function Profile() {
   // const {data} = useQuery(["worldCupList" ] , getWorldCupList);
@@ -17,7 +18,6 @@ function Profile() {
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      console.log(user);
       if (user) {
         setUserMail(user.email);
       } else {
@@ -44,11 +44,11 @@ function Profile() {
               <span>{userMail}님의 WorldCup-List</span>
             </div>
             <div>
-              <h2>{item.videoList.videoTitle}</h2>
+              <h2>{item.videoTitle}</h2>
               <ul onClick={onClickDelete}>
-                <li key={item.videoList.id}>
-                  <video
-                    url={item.videoList.thumbNailUrl}
+                <li key={item.videoId}>
+                  <YouTube
+                    videoId={item.videoId}
                     width="400px"
                     height="300px"
                     playing={true}
