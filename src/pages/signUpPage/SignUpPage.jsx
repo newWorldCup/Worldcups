@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import {
   StyledSignUi,
-  StyledPage,
+  StyledSocialBtns,
   StyledTitle,
   StyledInputs,
   StyledButtons,
@@ -11,7 +11,7 @@ import {
 } from '../../styles/StyledSign';
 import useFormInput from 'components/common/useFormInput';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../../firebase/firebase';
+import { auth } from '../../firebaseStore/firebaseConfig';
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 const SignUpPage = () => {
   const email = useFormInput(''); //커스텀훅value 자리에 email이 들어갑니다
@@ -30,7 +30,7 @@ const SignUpPage = () => {
     }
     return true;
   };
-
+  //firebase api 회원가입 연결
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (inputValidate()) {
@@ -51,43 +51,42 @@ const SignUpPage = () => {
   };
 
   return (
-    <StyledPage>
-      <StyledSignUi onSubmit={onSubmitHandler}>
-        <StyledTitle>회원가입</StyledTitle>
-        <StyledInputs>
-          <StyledInput
-            type="email"
-            name="email"
-            value={email.value}
-            onChange={email.onChange} //커스텀훅으로 핸들러를 대신함
-            placeholder="아이디(4~30글자,이메일로 작성하세요.)"
-            minLength={4}
-            maxLength={30}
-          ></StyledInput>
-          <StyledInput
-            type="password"
-            name="password"
-            value={password.value}
-            onChange={password.onChange} //커스텀훅으로 핸들러를 대신함
-            placeholder="비밀번호(6~15글자)"
-            minLength={6}
-            maxLength={15}
-          ></StyledInput>
-          <StyledInput
-            name="nickname"
-            value={nickname.value}
-            onChange={nickname.onChange} //커스텀훅으로 핸들러를 대신함
-            placeholder="닉네임(1~9글자)"
-            minLength={1}
-            maxLength={9}
-          ></StyledInput>
-        </StyledInputs>
-        <StyledButtons>
-          <StyledBtn type="submit">회원가입</StyledBtn>
-          <StyledP onClick={() => navigate('/signin')}>로그인</StyledP>
-        </StyledButtons>
-      </StyledSignUi>
-    </StyledPage>
+    <StyledSignUi onSubmit={onSubmitHandler}>
+      <StyledTitle>회원가입</StyledTitle>
+      <StyledInputs>
+        <StyledInput
+          type="email"
+          name="email"
+          value={email.value}
+          onChange={email.onChange} //커스텀훅으로 핸들러를 대신함
+          placeholder="아이디(4~30글자),이메일로 작성하세요."
+          minLength={4}
+          maxLength={30}
+        ></StyledInput>
+        <StyledInput
+          type="password"
+          name="password"
+          value={password.value}
+          onChange={password.onChange} //커스텀훅으로 핸들러를 대신함
+          placeholder="비밀번호(6~15글자)"
+          minLength={6}
+          maxLength={15}
+        ></StyledInput>
+        <StyledInput
+          name="nickname"
+          value={nickname.value}
+          onChange={nickname.onChange} //커스텀훅으로 핸들러를 대신함
+          placeholder="닉네임(1~9글자)"
+          minLength={1}
+          maxLength={9}
+        ></StyledInput>
+      </StyledInputs>
+      <StyledButtons>
+        <StyledBtn type="submit">회원가입</StyledBtn>
+        <StyledP onClick={() => navigate('/signin')}>로그인</StyledP>
+      </StyledButtons>
+      <StyledSocialBtns></StyledSocialBtns>
+    </StyledSignUi>
   );
 };
 
