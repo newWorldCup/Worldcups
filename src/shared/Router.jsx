@@ -5,6 +5,7 @@ import MyPage from 'pages/MyPage';
 import SignUpPage from 'pages/signUpPage/SignUpPage';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Profile from 'components/Profile';
 
 function Router() {
   return (

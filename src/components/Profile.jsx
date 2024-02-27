@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { useMutation, QueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 function Profile() {
   // const {data} = useQuery(["worldCupList" ] , getWorldCupList);
@@ -16,6 +17,7 @@ function Profile() {
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
+      console.log(user);
       if (user) {
         setUserMail(user.email);
       } else {
@@ -24,7 +26,7 @@ function Profile() {
     });
   }, []);
 
-  const filterWorldCupList = data?.filter((item) => item.userId === userMail);
+  // const filterWorldCupList = data?.filter((item) => item.userId === userMail);
 
   const onClickDelete = () => {
     // mutation.mutate(data.id);
@@ -32,14 +34,14 @@ function Profile() {
 
   return (
     <div>
-      {filterWorldCupList?.map((item) => {
+      {/* {filterWorldCupList?.map((item) => {
         return (
           <>
             <div>
               <div>
                 <img src={item.avatar} alt="profileImg" />
               </div>
-              <span>{item.userId}</span>
+              <span>{userMail}님의 WorldCup-List</span>
             </div>
             <div>
               <h2>{item.videoList.videoTitle}</h2>
@@ -59,7 +61,7 @@ function Profile() {
             </div>
           </>
         );
-      })}
+      })} */}
     </div>
   );
 }

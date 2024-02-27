@@ -7,11 +7,11 @@ import {
   StyledBtn,
   StyledInput,
   StyledP
-} from '../../styles/StyledSign';
+} from 'styles/StyledSign';
 import { useNavigate } from 'react-router-dom';
 import useFormInput from 'components/common/useFormInput';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase/firebase';
+import { auth } from 'firebaseStore/firebaseConfig';
 const SignInPage = () => {
   const email = useFormInput(''); //커스텀훅value 자리에 email이 들어갑니다
   const password = useFormInput(''); //커스텀훅value 자리에 password 들어갑니다
