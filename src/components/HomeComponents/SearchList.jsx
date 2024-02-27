@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from '../../firebase';
-
+import useFormInput from 'components/common/useFormInput';
 const SearchList = () => {
   const [cups, setCups] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [searchTitle, setSearchTitle] = useState('');
-
+  // const [searchTitle.value, setSearchTitle] = useState('');
+  const searchTitle = useFormInput('');
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, 'worldCupList'));
@@ -30,13 +30,14 @@ const SearchList = () => {
   }, []);
 
   useEffect(() => {
-    console.log(searchTitle);
-    if (searchTitle !== '') {
-      setFilteredData(cups.filter((data) => data.title.toLowerCase().includes(searchTitle.toLowerCase())));
+    console.log(searchTitle.value);
+    if (searchTitle.value !== '') {
+      setFilteredData(cups.filter((data) => data.title.toLowerCase().includes(searchTitle.value.toLowerCase())));
     } else {
       setFilteredData([]);
     }
-  }, [searchTitle]);
+  }, [searchTitle.value]);
+  // filter대신 firebase안의 where메소드 사용하여 대신해 보기
 
   // const { isLoading, error, data } = useQuery({ queryKey: ['worldCupList'], queryFn: getWorldCups });
 
@@ -48,26 +49,20 @@ const SearchList = () => {
   //   return <div>오류 발생</div>;
   // }
 
-  const onChangeSearchItems = (e) => {
-    setSearchTitle(e.target.value);
-  };
-
-  const onClickResetBtn = () => {
-    setFilteredData([]);
-    setSearchTitle('');
-  };
+  // const onChangeSearchItems = (e) => {
+  //   setSearchTitle(e.target.value);
+  // };
 
   return (
     <>
       <InputDiv>
         {' '}
         검색창:&nbsp;
-        <input placeholder="제목을 입력해 주세요." onChange={onChangeSearchItems} />
-        <button onClick={onClickResetBtn}>리셋</button>
+        <input placeholder="제목을 입력해 주세요." value={searchTitle.value} onChange={searchTitle.onChange} />
       </InputDiv>
       <SemiContentDiv>
         <ContentDiv>
-          {searchTitle === ''
+          {searchTitle.value === ''
             ? cups.map((itemList) => {
                 return (
                   <BoxDiv style={{ backgroundImage: `url(${itemList.thumbNail})` }} key={itemList.id}>

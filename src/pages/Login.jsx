@@ -9,9 +9,7 @@ function Login() {
   const [loginPassword, setLoginPassword] = useState('');
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log('user', user);
-    });
+    onAuthStateChanged(auth, (user) => {});
   }, []);
 
   // const signUpSubmit = async (e) => {
@@ -38,13 +36,10 @@ function Login() {
       setLoginPassword('');
 
       const { accessToken } = userCredential.user;
-      console.log(userCredential);
       localStorage.setItem('userInfo', JSON.stringify({ accessToken, email }));
-      console.log('userCredential', userCredential.user);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log('error with signUp', errorCode, errorMessage);
     }
   };
 
