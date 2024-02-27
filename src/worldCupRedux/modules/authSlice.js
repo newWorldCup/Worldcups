@@ -1,15 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isLogin: false
+  isAuthenticated: false,
+  loading: true
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setIsLogin: (state, action) => {
-      state.isLogin = action.payload;
+    setAuthState: (state, action) => {
+      state.isAuthenticated = action.payload.isAuthenticated;
+      state.loading = action.payload.loading;
     }
   }
 });

@@ -33,6 +33,8 @@ const SignInPage = () => {
       try {
         const signIn = await signInWithEmailAndPassword(auth, email.value, password.value);
         console.log(signIn);
+        localStorage.setItem('uid', JSON.stringify(signIn.user.uid));
+        localStorage.setItem('token', JSON.stringify(signIn.user.accessToken));
         navigate('/', { replace: true });
       } catch (error) {
         if (error.code === 'auth/invalid-credential') {
