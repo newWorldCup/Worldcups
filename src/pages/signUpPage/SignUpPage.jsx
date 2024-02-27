@@ -8,10 +8,10 @@ import {
   StyledBtn,
   StyledInput,
   StyledP
-} from '../../styles/StyledSign';
+} from 'styles/StyledSign';
 import useFormInput from 'components/common/useFormInput';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../../firebase/firebase';
+import { auth } from 'firebaseStore/firebaseConfig';
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 const SignUpPage = () => {
   const email = useFormInput(''); //커스텀훅value 자리에 email이 들어갑니다

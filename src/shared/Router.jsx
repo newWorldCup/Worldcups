@@ -1,10 +1,11 @@
 import Detail from 'pages/Detail';
 import SignInPage from 'pages/signInPage/SignInPage';
 import Main from 'pages/Main';
-import Mypage from 'pages/Mypage';
+import MyPage from 'pages/MyPage';
 import SignUpPage from 'pages/signUpPage/SignUpPage';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Profile from 'components/Profile';
 
 function Router() {
   return (
@@ -13,7 +14,7 @@ function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/signin" element={<SignInPage />} />
-        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/mypage" element={<MyPage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </BrowserRouter>
