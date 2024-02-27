@@ -35,7 +35,6 @@ const Header = () => {
     try {
       await signOut(auth);
       alert('로그아웃 되었습니다.');
-
       navigate('/signin');
       localStorage.removeItem('uid');
       localStorage.removeItem('accessToken');

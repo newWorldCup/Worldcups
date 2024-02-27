@@ -19,17 +19,17 @@ import {
 
 const MakeWorldCup = () => {
   // 추후 로그인 한 사람의 videoList로 바꿔야 함
-
-  const [searchword, setSearchWord] = useState('');
   const [makeingWorldCup, setMakingWorldCup] = useState(false);
+  const [searchword, setSearchWord] = useState('');
   const [worldCupTitle, setWorldCupTitle] = useState('');
-  const rawVideoList = localStorage.getItem('videoList');
-  const parsedList = rawVideoList ? JSON.parse(rawVideoList) : [];
-  const [videoList, setVideoList] = useState(parsedList);
   const searchList = useSelector((state) => state.searchListSlice);
   const worldCupList = useSelector((state) => state.worldCupListSlice);
   const rawUid = localStorage.getItem('uid');
   const uid = rawUid ? JSON.parse(rawUid) : '';
+  const rawVideoList = localStorage.getItem(`videoList${uid}`);
+  const parsedList = rawVideoList ? JSON.parse(rawVideoList) : [];
+  const [videoList, setVideoList] = useState(parsedList);
+
   const dispatch = useDispatch();
   console.log(worldCupList);
 
@@ -59,13 +59,13 @@ const MakeWorldCup = () => {
   }, [dispatch, worldCups]);
 
   useEffect(() => {
-    localStorage.setItem('videoList', JSON.stringify(videoList));
+    localStorage.setItem(`videoList${uid}`, JSON.stringify(videoList));
     if (videoList.length === 0) {
       setMakingWorldCup(false);
     } else {
       setMakingWorldCup(true);
     }
-  }, [videoList]);
+  }, [videoList, uid]);
 
   if (isLoading) {
     return <div>월드컵 리스트 로딩중...</div>;
@@ -135,11 +135,10 @@ const MakeWorldCup = () => {
         videoList
       };
       alert('월드컵 완성! 월드컵 리스트에서 확인하세요:)');
-      setVideoList([]);
       setWorldCupTitle('');
       dispatch(resetSearchList());
       mutateToAdd(newWorldCup);
-      localStorage.removeItem('videoList');
+      localStorage.removeItem(`videoList${uid}`);
     }
   };
 
