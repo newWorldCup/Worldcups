@@ -6,14 +6,19 @@ import {
   StyledButtons,
   StyledBtn,
   StyledInput,
-  StyledP
+  StyledP,
+  StyledSocialBtn
 } from 'styles/StyledSign';
 import { useNavigate } from 'react-router-dom';
 import useFormInput from 'components/common/useFormInput';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth } from 'firebaseStore/firebaseConfig';
+import { useState } from 'react';
+import googleIcon from '../../assets/free-icon-google-300221.png';
+import githubIcon from '../../assets/free-icon-github-logo-25231.png';
 
 const SignInPage = () => {
+  const [userData, setUserData] = useState(null);
   const email = useFormInput(''); //커스텀훅value 자리에 email이 들어갑니다
   const password = useFormInput(''); //커스텀훅value 자리에 password 들어갑니다
   const navigate = useNavigate();
@@ -25,6 +30,18 @@ const SignInPage = () => {
     }
     return true;
   };
+
+  function GoogleLoginHandler() {
+    const provider = new GoogleAuthProvider(); // provider를 구글로 설정
+    signInWithPopup(auth, provider) // popup을 이용한 signup
+      .then((data) => {
+        setUserData(data.user); // user data 설정
+        console.log(data); // console로 들어온 데이터 표시
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   //firebase api 로그인 연결
   const onSubmitHandler = async (e) => {
@@ -75,8 +92,11 @@ const SignInPage = () => {
           <StyledBtn type="submit">로그인</StyledBtn>
           <StyledP onClick={() => navigate('/signup')}>회원가입</StyledP>
         </StyledButtons>
-        <StyledSocialBtns></StyledSocialBtns>
       </StyledSignUi>
+      <StyledSocialBtns>
+        <StyledSocialBtn $imageUrl={githubIcon} onClick={GoogleLoginHandler} />
+        <StyledSocialBtn $imageUrl={googleIcon} onClick={GoogleLoginHandler} />
+      </StyledSocialBtns>
     </>
   );
 };

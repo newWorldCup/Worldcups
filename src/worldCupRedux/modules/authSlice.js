@@ -4,7 +4,7 @@ const initialState = {
   isAuthenticated: false,
   loading: true
 };
-
+//로그인상태 로딩상태관리
 const authSlice = createSlice({
   name: 'auth',
   initialState,
