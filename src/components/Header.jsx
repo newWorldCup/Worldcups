@@ -48,6 +48,8 @@ const Header = () => {
       removeHandler(`videoList${uid}`);
       removeHandler('uid');
       removeHandler('token');
+      removeHandler('nickname');
+      removeHandler('email');
       navigate('/');
     } catch (error) {
       console.error('로그아웃 실패', error);
