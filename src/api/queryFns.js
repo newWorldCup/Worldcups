@@ -11,6 +11,27 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 삭제하기
 const deleteWorldCupList = async (userMail) => {
   await axios.delete(`${URL}/worldCupList`, userMail);
