@@ -18,7 +18,7 @@ function Router() {
         {/* 로그인 상관없이 로딩되는 페이지 : 메인(리스트), 디테일(게임하는페이지) */}
         <Route element={<Layout />}>
           <Route path="/" element={<Main />} />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/detail/:id" element={<Detail />} />
         </Route>
         {/* 로그인이 필요한 페이지 : 마이페이지, 만들기페이지 */}
         <Route element={<AuthLayout />}>
