@@ -1,6 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import Layout from 'components/Layout';
 import SignInPage from 'pages/signInPage/SignInPage';
 import AuthLayout from 'components/AuthLayout';
@@ -11,17 +9,7 @@ import Main from 'pages/Main';
 import MyPage from 'pages/Mypage';
 import MakeWorldCup from 'pages/MakeWorldCup';
 import SignUpPage from 'pages/signUpPage/SignUpPage';
-import { setIsLogin } from 'worldCupRedux/modules/authSlice';
 function Router() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('userInfo'));
-
-    if (data?.accessToken) {
-      dispatch(setIsLogin(true));
-    }
-  }, [dispatch]);
-
   return (
     <BrowserRouter>
       <Header />

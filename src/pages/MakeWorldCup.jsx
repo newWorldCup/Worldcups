@@ -1,22 +1,34 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addSearchList } from 'worldCupRedux/modules/searchListSlice';
+import { addSearchList } from 'worldCupRedux/modules/makeWorldCup/searchListSlice';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addWorldCup, fetchWorldCupList } from 'api/queryFns';
 import { url, youtubeUrl } from 'common/data';
-import { Link } from 'react-router-dom';
-import { getWorldCup } from 'worldCupRedux/modules/worldCupSlice';
-import styled from 'styled-components';
+import { getWorldCup } from 'worldCupRedux/modules/makeWorldCup/worldCupSlice';
+import {
+  EntireDiv,
+  TitleForm,
+  WorldCupTitle,
+  MakeWorldCupDiv,
+  CandidatesvideosDiv,
+  SearchedListDiv,
+  SearchedVideoDiv,
+  StyledLink
+} from 'styles/StyledMakeWorldCup';
 
 const MakeWorldCup = () => {
+  // 추후 로그인 한 사람의 videoList로 바꿔야 함
+
   const [searchword, setSearchWord] = useState('');
   const [makeingWorldCup, setMakingWorldCup] = useState(false);
   const [worldCupTitle, setWorldCupTitle] = useState('');
-  const [videoList, setVideoList] = useState([]);
-  const dispatch = useDispatch();
+  const rawVideoList = localStorage.getItem('videoList');
+  const parsedList = rawVideoList ? JSON.parse(rawVideoList) : [];
+  const [videoList, setVideoList] = useState(parsedList);
   const searchList = useSelector((state) => state.searchListSlice);
   const worldCupList = useSelector((state) => state.worldCupListSlice);
+  const dispatch = useDispatch();
   console.log(worldCupList);
 
   const queryClient = useQueryClient();
@@ -39,15 +51,19 @@ const MakeWorldCup = () => {
     queryFn: fetchWorldCupList
   });
 
+  // 각 state의 useEffect가 영향 받지 않도록 하기 위해서 여러 개의 useEffect 사용
   useEffect(() => {
     dispatch(getWorldCup(worldCups));
   }, [dispatch, worldCups]);
 
   useEffect(() => {
+    localStorage.setItem('videoList', JSON.stringify(videoList));
     if (videoList.length === 0) {
       setMakingWorldCup(false);
+    } else {
+      setMakingWorldCup(true);
     }
-  }, [videoList.length]);
+  }, [videoList]);
 
   if (isLoading) {
     return <div>월드컵 리스트 로딩중...</div>;
@@ -68,7 +84,6 @@ const MakeWorldCup = () => {
         const { data } = await axios.get(
           `${url}/search?part=snippet&maxResults=1&q=${searchword}&key=AIzaSyCz0moHjm4tSh2cd0z2lhvcgTJyXpQSW4I`
         );
-        console.log(data);
         dispatch(addSearchList(data));
         setSearchWord('');
       } catch (error) {
@@ -94,6 +109,7 @@ const MakeWorldCup = () => {
         videoTitle: title,
         thumbNailUrl: thumbNail
       };
+
       setVideoList([...videoList, newVideo]);
     }
   };
@@ -116,7 +132,11 @@ const MakeWorldCup = () => {
         createdAt: String(new Date()),
         videoList
       };
+      alert('월드컵 완성! 월드컵 리스트에서 확인하세요:)');
+      setVideoList([]);
+      setWorldCupTitle('');
       mutateToAdd(newWorldCup);
+      localStorage.removeItem('videoList');
     }
   };
 
@@ -180,186 +200,3 @@ const MakeWorldCup = () => {
 };
 
 export default MakeWorldCup;
-
-const EntireDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const TitleForm = styled.form`
-  width: 100%;
-  height: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  & input {
-    width: 350px;
-    height: 25px;
-    border: 3px solid #bfbfbf;
-  }
-  & input:focus {
-    outline: none;
-  }
-  & button {
-    width: 70px;
-    height: 35px;
-    color: #52606d;
-    font-size: 16px;
-    font-weight: 550;
-    border: 3px solid #bfbfbf;
-    border-radius: 3px;
-    &:hover {
-      background-color: #bfbfbf;
-    }
-    & button:focus {
-      outline: none;
-    }
-  }
-`;
-
-const WorldCupTitle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100%;
-  height: 40px;
-  gap: 8px;
-  color: #52606d;
-  & div {
-    display: flex;
-    gap: 10px;
-    & span {
-      font-weight: 550;
-      font-size: 17px;
-      color: #3e4c59;
-    }
-    & input {
-      border-top: none;
-      border-right: none;
-      border-left: none;
-      font-size: 16px;
-      width: 150px;
-    }
-    & input:focus {
-      outline: none;
-    }
-  }
-  & button {
-    margin: 0 5px 0 10px;
-    width: 110px;
-    height: 30px;
-    border: 2px solid #bfbfbf;
-    border-radius: 5px;
-    font-size: 15px;
-    font-weight: 550;
-    color: #52606d;
-    &:hover {
-      background-color: #dcdcde;
-    }
-  }
-`;
-
-const MakeWorldCupDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 1400px;
-  border-bottom: 2px solid #52606d;
-  height: fit-content; /* 내부 컨텐츠에 맞게 높이 조정 */
-`;
-
-const CandidatesvideosDiv = styled.div`
-  height: 200px;
-  width: 100%;
-  max-width: 1400px;
-  color: #52606d;
-  display: flex;
-  flex-direction: column;
-  & p {
-    margin-left: 20px;
-    font-weight: 550;
-    font-size: 20px;
-  }
-  & div {
-    width: 1400px;
-    height: 130px;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-    max-height: 200px;
-    overflow-y: auto;
-    & button {
-      width: 20px;
-      margin: 0px;
-    }
-  }
-  & div > img {
-    width: 150px;
-    height: 100px;
-    border-radius: 5px;
-    border: 3px solid #bfbfbf;
-  }
-`;
-const SearchedListDiv = styled.div`
-  width: 100%;
-  max-width: 1400px;
-  margin-top: 20px;
-  padding: 0 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-`;
-
-const SearchedVideoDiv = styled.div`
-  gap: 10px;
-  width: 250px;
-  height: 320px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 8px;
-  border: 2px solid #bfbfbf;
-  background-color: #dcdcde;
-  margin-top: 10px;
-  padding: 0px 10px 10px 10px;
-  & button {
-    width: 200px;
-    height: 40px;
-    font-size: 16px;
-    color: #3e4c59;
-    border: solid 3px #bfbfbf;
-    border-radius: 5px;
-    cursor: pointer;
-    &:hover {
-      background-color: #bfbfbf;
-    }
-  }
-`;
-
-const StyledLink = styled(Link)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 250px;
-  height: 270px;
-  color: inherit;
-  &:hover {
-    color: #52606d;
-  }
-  & p {
-    height: 40px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-  & img {
-    border-radius: 5px;
-    height: 188px;
-  }
-`;
