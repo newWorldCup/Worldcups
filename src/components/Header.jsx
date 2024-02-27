@@ -40,6 +40,7 @@ const Header = () => {
   };
 
   const logoutHandler = async () => {
+    //파이어베이스 로그아웃 로직
     try {
       await signOut(auth);
       alert('로그아웃 되었습니다.');
@@ -47,6 +48,8 @@ const Header = () => {
       removeHandler(`videoList${uid}`);
       removeHandler('uid');
       removeHandler('token');
+      removeHandler('nickname');
+      removeHandler('email');
       navigate('/');
     } catch (error) {
       console.error('로그아웃 실패', error);
@@ -58,7 +61,7 @@ const Header = () => {
       <HeaderStyle>
         <HeaderContainer>
           <div>
-            <MenuButton to="/">List</MenuButton>
+            <MenuButton to="/">Home</MenuButton>
             <MenuButton to="/makeWorldCup">NewWorldcup</MenuButton>
           </div>
           <div>

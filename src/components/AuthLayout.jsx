@@ -16,7 +16,6 @@ const AuthLayout = () => {
 
   return (
     <div>
-      <h1>Auth Layout 구분용 임시 텍스트.</h1>
       <main>
         <Outlet />
       </main>
