@@ -24,10 +24,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchItems = async () => {
       const itemRef = doc(db, 'worldCupList', id);
-      // 문서 ID는 자동으로 생성된 부분이라 나중에 리스트에서 클릭한 문서의 ID를 가져올 수 있도록 변경해야함
       const docData = await getDoc(itemRef);
-
-      console.log('데이터', docData);
 
       if (docData.exists()) {
         let videoList = docData.data().videoList;

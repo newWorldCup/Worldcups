@@ -19,7 +19,7 @@ export const SearchInput = styled.input`
 `;
 
 export const ContentDiv = styled.div`
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   display: flex;
   margin: 0 auto;
@@ -38,6 +38,7 @@ export const ContentDiv = styled.div`
 export const BoxContentDiv = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
 `;
 export const BoxDiv = styled.div`
   ${ContentDiv}:hover & {
