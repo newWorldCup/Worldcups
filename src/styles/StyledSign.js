@@ -48,6 +48,7 @@ export const StyledBtn = styled.button`
   border: 1px solid white;
   border-radius: 10px;
   background-color: black;
+  padding: 10px;
   width: 200px;
   height: 50px;
   color: white;
@@ -55,7 +56,7 @@ export const StyledBtn = styled.button`
   margin-bottom: 20px;
   &:hover {
     cursor: pointer;
-    background-color: red;
+    background-color: var(--main-color);
   }
 `;
 export const StyledInput = styled.input`
