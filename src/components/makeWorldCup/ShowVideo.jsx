@@ -3,6 +3,7 @@ import YouTube from 'react-youtube';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchedListDiv, SearchedVideoDiv, YouTubeDiv } from 'styles/StyledMakeWorldCup';
 import { addVideoList } from 'worldCupRedux/modules/makeWorldCup/videoListSlice';
+import { toast } from 'react-toastify';
 
 const ShowVideo = ({ setMakingWorldCup }) => {
   const searchList = useSelector((state) => state.searchListSlice);
@@ -11,7 +12,7 @@ const ShowVideo = ({ setMakingWorldCup }) => {
 
   const addVideo = (id, title, thumbNail) => {
     if (videoList.find((video) => video.videoId === id)) {
-      alert('같은 영상은 다시 추가할 수 없습니다.');
+      toast.error('같은 영상은 다시 추가할 수 없습니다.');
     } else {
       setMakingWorldCup(true);
       const newVideo = {
