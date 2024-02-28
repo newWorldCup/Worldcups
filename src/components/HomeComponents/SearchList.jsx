@@ -56,7 +56,7 @@ const SearchList = () => {
         {' '}
         검색
         <SearchInput
-          placeholder="원하는 월드컵을 검색해보세요!"
+          placeholder="원하는 월드컵을 검색해보세요."
           value={searchTitle.value}
           onChange={searchTitle.onChange}
         />

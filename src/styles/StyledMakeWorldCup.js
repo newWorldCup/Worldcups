@@ -99,29 +99,47 @@ export const CandidatesvideosDiv = styled.div`
   max-width: 1400px;
   color: #52606d;
   display: flex;
+  overflow-x: auto;
   flex-direction: column;
-  
+  justify-content: space-evenly;
+`;
+
+export const CandidateTitle = styled.div`
+  display: flex;
+  gap: 10px;
   & p {
-    margin-left: 20px;
+    margin-left: 30px;
     font-weight: 550;
-    font-size: 20px;
+    font-size: 25px;
   }
+  & button {
+    width: 80px;
+    height: 25px;
+    margin-top: 1px;
+    border: none;
+    border-radius: 3px;
+    &:hover {
+      background-color: #bfbfbf;
+    }
+  }
+`;
+
+export const CandidatesBodyDiv = styled.div`
   & div {
-    /* width: 100%; */
     height: 130px;
     display: flex;
     align-items: center;
     flex-direction: row;
-    flex-wrap: wrap;
     max-height: 200px;
-    overflow-y: auto;
     margin-right: 30px;
+
     & button {
       width: 20px;
       margin: 0px;
       margin-right: 15px;
       background-color: #f00;
-      color:white;
+      border-radius: 3px;
+      color: white;
       border: 0;
       padding: 3px 5px;
     }
@@ -133,6 +151,7 @@ export const CandidatesvideosDiv = styled.div`
     border: 3px solid #bfbfbf;
   }
 `;
+
 export const SearchedListDiv = styled.div`
   width: 100%;
   max-width: 1400px;

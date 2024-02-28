@@ -6,19 +6,25 @@ export const SearchListContainer = styled.div`
 `;
 
 export const InputDiv = styled.div`
-  color: red;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  color: black;
   margin: 20px 0px 50px 0px;
   size: 50px;
-  font-size: 30px;
+  font-size: 24px;
 `;
 
 export const SearchInput = styled.input`
-  font-size: 25px;
-  padding: 10px 15px;
-  border: 3px solid black;
+  font-size: 20px;
+  padding: 5px 15px;
+  border: 1px solid black;
   border-radius: 5px;
-  width: 500px;
   margin-left: 10px;
+  &::placeholder {
+      font-size: 16px;  
+      color: var(--sub-color-lightgrey);
+    }
 `;
 
 export const ContentDiv = styled.div`
