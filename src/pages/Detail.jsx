@@ -37,7 +37,6 @@ const Detail = () => {
         console.log('월드컵 리스트를 불러오는데 실패했습니다!');
       }
     };
-
     fetchItems();
   }, [id]);
 
@@ -58,9 +57,7 @@ const Detail = () => {
   const clickHandler = (selectedItem) => () => {
     const newItems = worldcupItems.filter((item) => item !== selectedItem);
     setWorldcupItems(newItems); // 선택되지 않은 아이템 제거
-
     console.log('선택된 아이템 제거', newItems);
-
     if (newItems.length === 1 && round > 2) {
       // 마지막 아이템이고 아직 결승전이 아닌 경우
       setWinners((prevWinners) => [...prevWinners, selectedItem]);
@@ -72,7 +69,6 @@ const Detail = () => {
       setDisplays(newItems.slice(0, 2));
     }
   };
-
   /** react-youtube 옵션 설정 */
   const opts = {
     height: '600',
@@ -80,7 +76,6 @@ const Detail = () => {
       autoplay: 0
     }
   };
-
   return (
     <WorldcupGame>
       <WorldcupTitle>{worldcupTitle}</WorldcupTitle>

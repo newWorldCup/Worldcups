@@ -30,6 +30,12 @@ const SignUpPage = () => {
       alert('아이디와 비밀번호,닉네임을 모두 입력하세요');
       return false;
     }
+    //비밀번호 유효성 검사 강화
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,15}$/;
+    if (!passwordRegex.test(password.value)) {
+      alert('비밀번호는 6~15글자이며,최소 하나의 문자,숫자,특수문자를 포함해야 합니다!');
+      return false;
+    }
     return true;
   };
   //firebase api 회원가입 연결
@@ -74,7 +80,7 @@ const SignUpPage = () => {
           name="password"
           value={password.value}
           onChange={password.onChange} //커스텀훅으로 핸들러를 대신함
-          placeholder="비밀번호(6~15글자)"
+          placeholder="비밀번호(6~15글자),최소 하나의 특수문자,문자,숫자"
           minLength={6}
           maxLength={15}
         ></StyledInput>

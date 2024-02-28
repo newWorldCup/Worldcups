@@ -88,4 +88,7 @@ export const StyledSocialBtn = styled.button`
   background-size: cover;
   background-position: center;
   background-image: ${({ $imageUrl }) => `url(${$imageUrl})`};
+  &:hover {
+    cursor: pointer;
+  }
 `;
