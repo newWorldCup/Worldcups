@@ -35,6 +35,7 @@ export const MenuButton = styled(Link)`
   font-size: 30px;
   color: #000000;
   cursor: pointer;
+  user-select: none;
   &:hover {
     color: var(--main-color);
   }
