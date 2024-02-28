@@ -17,6 +17,7 @@ import { useState } from 'react';
 import googleIcon from '../../assets/free-icon-google-300221.png';
 import githubIcon from '../../assets/free-icon-github-logo-25231.png';
 import { doc, getDoc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 const SignInPage = () => {
   const [userData, setUserData] = useState(null);
@@ -26,7 +27,7 @@ const SignInPage = () => {
 
   const inputValidate = () => {
     if (!email.value.trim() || !password.value.trim()) {
-      alert('아이디와 비밀번호를 모두 입력하세요');
+      toast.error('아이디와 비밀번호를 모두 입력하세요');
       return false;
     }
     return true;
@@ -47,7 +48,8 @@ const SignInPage = () => {
   //firebase api 로그인 연결
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    if (inputValidate()) {
+    const isInputValidated = inputValidate();
+    if (isInputValidated) {
       try {
         const signIn = await signInWithEmailAndPassword(auth, email.value, password.value);
         const user = signIn.user;
@@ -60,9 +62,9 @@ const SignInPage = () => {
         navigate('/', { replace: true });
       } catch (error) {
         if (error.code === 'auth/invalid-credential') {
-          return alert('존재하지 않는 아이디입니다!');
+          return toast.error('아이디 비밀번호가 맞는지 확인해주세요!');
         } else {
-          alert('알 수 없는 오류가 생겼습니다! 아이디를 삭제하고 다시 만들어주세요!');
+          toast.error('알 수 없는 오류가 생겼습니다! 아이디를 삭제하고 다시 만들어주세요!');
           console.log(error);
         }
       }
