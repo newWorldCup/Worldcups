@@ -17,7 +17,7 @@ export const TitleForm = styled.form`
   gap: 10px;
   & input {
     width: 350px;
-    height: 25px;
+    height: 40px;
     border: 3px solid #bfbfbf;
   }
   & input:focus {
@@ -25,7 +25,7 @@ export const TitleForm = styled.form`
   }
   & button {
     width: 70px;
-    height: 35px;
+    height: 40px;
     color: #52606d;
     font-size: 16px;
     font-weight: 550;

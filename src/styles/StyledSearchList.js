@@ -11,15 +11,15 @@ export const InputDiv = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  font-size: 26px;
+  font-size: 25px;
   padding: 10px 15px;
-  border: 1px solid black;
+  border: 3px solid black;
   border-radius: 5px;
   margin-left: 10px;
 `;
 
 export const ContentDiv = styled.div`
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   display: flex;
   margin: 0 auto;
@@ -38,7 +38,9 @@ export const ContentDiv = styled.div`
 export const BoxContentDiv = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 `;
+
 export const BoxDiv = styled.div`
   ${ContentDiv}:hover & {
     opacity: 1;

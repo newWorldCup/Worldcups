@@ -65,10 +65,10 @@ const NewWorldCup = ({ makeingWorldCup, uid }) => {
             <p>Candidates</p>
             <div>
               {videoList.map((video) => (
-                <>
+                <div key={video.videoId}>
                   <button onClick={() => cancelAddvideo(video.videoId)}>x</button>
                   <img src={video.thumbNailUrl} alt="추가된 영상 썸네일" key={video.videoId} />
-                </>
+                </div>
               ))}
             </div>
           </CandidatesvideosDiv>
