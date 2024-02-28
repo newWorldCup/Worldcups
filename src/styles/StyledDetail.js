@@ -10,6 +10,7 @@ export const WorldcupGame = styled.div`
 
 export const WorldcupTitle = styled.h2`
   font-size: 30px;
+  font-weight: 700;
 `;
 
 export const WorldcupVideoList = styled.div`
@@ -50,3 +51,10 @@ export const WorldcupSelectButton = styled.button`
     background-color: var(--main-color);
   }
 `;
+
+export const RoundName = styled.p`
+font-size: 20px;
+border: 1px solid black;
+padding: 10px 20px;
+margin-bottom: 10px;
+`

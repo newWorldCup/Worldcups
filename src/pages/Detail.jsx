@@ -7,7 +7,8 @@ import {
   WorldcupVideoList,
   WorldcupVideo,
   WorldcupVideoTitle,
-  WorldcupSelectButton
+  WorldcupSelectButton,
+  RoundName
 } from 'styles/StyledDetail';
 import { db } from 'firebaseStore/firebaseConfig';
 import YouTube from 'react-youtube';
@@ -91,17 +92,18 @@ const Detail = () => {
   return (
     <WorldcupGame>
       <WorldcupTitle>{worldcupTitle}</WorldcupTitle>
-      <p>{round}강입니다.</p>
+      <RoundName>{round === 2 ? '결승' : round === 1 ? '우승!' : `${round}강`}</RoundName>
       <WorldcupVideoList>
         {displays.map((video) => (
           <WorldcupVideo key={video.videoId}>
             <YouTube videoId={video.videoId} opts={opts} />
             <WorldcupVideoTitle>{video.videoTitle}</WorldcupVideoTitle>
-            <WorldcupSelectButton onClick={clickHandler(video)}>선택</WorldcupSelectButton>
+            <WorldcupSelectButton onClick={clickHandler(video)}>
+              {round === 1 ? '최종 우승자!' : '선택'}
+            </WorldcupSelectButton>
           </WorldcupVideo>
         ))}
       </WorldcupVideoList>
-      {round === 1 && winners.length === 1 && <div>최종 우승자는 {winners[0].videoTitle}입니다!</div>}
     </WorldcupGame>
   );
 };
