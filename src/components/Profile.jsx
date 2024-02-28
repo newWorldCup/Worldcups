@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 import { db } from 'firebaseStore/firebaseConfig';
-import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore';
 import {
   DeleteBtn,
   MainColorSpan,
@@ -22,7 +22,12 @@ function Profile() {
         const q = query(collection(db, 'worldCupList'));
         const querySnapshot = await getDocs(q);
         const data = querySnapshot.docs.map((doc) => doc.data());
-        const filterData = data.filter((item) => item.userId === userMail);
+        const worldCupArr = [];
+        querySnapshot.forEach((doc) => {
+          const worldCup = { id: doc.id, ...doc.data() };
+          worldCupArr.push(worldCup);
+        });
+        const filterData = worldCupArr.filter((item) => item.userId === userMail);
         setWorldCupList(filterData);
       } catch (error) {
         console.error('Error fetching documents:', error);
@@ -33,10 +38,10 @@ function Profile() {
     }
   }, [userMail]);
 
-  const onDeleteClick = async (uid) => {
+  const onDeleteClick = async (id) => {
     try {
-      await deleteDoc(doc(db, 'worldCupList', uid));
-      setWorldCupList((prevWorldCupList) => prevWorldCupList.filter((worldCup) => worldCup.uid !== uid));
+      await deleteDoc(doc(db, 'worldCupList', id));
+      setWorldCupList((prevWorldCupList) => prevWorldCupList.filter((worldCup) => worldCup.id !== id));
     } catch (error) {
       console.error('Error deleting document:', error);
     }
@@ -54,8 +59,8 @@ function Profile() {
           {emailRename(userMail)}님의 <MainColorSpan>WorldCupList</MainColorSpan>
         </p>
       </ProfileTitle>
-      {worldCupList.map((worldCup) => (
-        <ProfileWrap key={worldCup.uid}>
+      {worldCupList?.map((worldCup) => (
+        <ProfileWrap key={worldCup.id}>
           <div>
             <MyPageTitle>
               {emailRename(userMail)}님의 &nbsp;
@@ -63,7 +68,7 @@ function Profile() {
             </MyPageTitle>
           </div>
           <VideoContainer>
-            <DeleteBtn onClick={() => onDeleteClick(worldCup.uid)}>삭제하기</DeleteBtn>
+            <DeleteBtn onClick={() => onDeleteClick(worldCup.id)}>삭제하기</DeleteBtn>
             {worldCup.videoList.map((video) => (
               <div key={video.videoId}>
                 <YouTube videoId={video.videoId} />
