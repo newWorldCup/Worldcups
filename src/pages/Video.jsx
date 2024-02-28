@@ -1,7 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-
+import { StyledVideoInHome, VideoWrap, Styledvideo, CloseButton } from '../styles/StyledVideo';
 // 온클릭했을때 불리언을 true
 // 메인에서 스테이트를 잡아서 비디오로 넘겨주기
 
@@ -51,51 +50,3 @@ const Video = () => {
 };
 
 export default Video;
-
-const StyledVideoInHome = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  overflow: hidden;
-  background-color: black;
-`;
-
-const VideoWrap = styled.div`
-  /* position: relative;
-  height: 100%;
-  overflow: hidden; */
-`;
-
-const Styledvideo = styled.video`
-  position: absolute;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  top: 0;
-  left: 0;
-  border: none;
-  transform: translateX(-50%, -50%);
-  @media all and (max-width: 1920px) {
-    width: 100%;
-    height: auto;
-    top: 50%;
-    left: 0;
-    transform: translate(0, -50%);
-  }
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: transparent;
-  border: none;
-  color: var(--sub-color-darkgrey2);
-  font-size: 30px;
-  cursor: pointer;
-  z-index: 2000;
-`;
