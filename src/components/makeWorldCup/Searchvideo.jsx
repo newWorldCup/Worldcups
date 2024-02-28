@@ -4,6 +4,7 @@ import { url } from 'common/data';
 import { addSearchList } from 'worldCupRedux/modules/makeWorldCup/searchListSlice';
 import { TitleForm } from 'styles/StyledMakeWorldCup';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const Searchvideo = () => {
   const [searchword, setSearchWord] = useState('');
@@ -25,7 +26,7 @@ const Searchvideo = () => {
         console.log(error);
       }
     } else {
-      alert('검색어를 입력해주세요.');
+      toast.error('검색어를 입력해주세요.');
     }
   };
   return (
