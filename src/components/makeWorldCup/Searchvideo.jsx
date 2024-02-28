@@ -17,7 +17,7 @@ const Searchvideo = () => {
     if (searchword) {
       try {
         const { data } = await axios.get(
-          `${url}/search?part=snippet&maxResults=1&q=${searchword}&key=AIzaSyB0RoC6Q0OR4ck6LJ2WKk89gXN-mO3gWss`
+          `${url}/search?part=snippet&maxResults=1&q=${searchword}&key=${process.env.REACT_APP_YOUTUBE_API_kEY}`
         );
         dispatch(addSearchList(data));
         setSearchWord('');

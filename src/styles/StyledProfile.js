@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ProfileTitle = styled.div`
   display: flex;
   justify-content: center;
+  user-select: none;
   & p{
     font-size: 36px;
     font-weight: 700;
@@ -53,3 +54,26 @@ export const VideoTitle = styled.h2`
   padding: 30px;
   color: #fff;
 `;
+
+export const MakeWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  gap: 30px;
+  user-select: none;
+
+  & p{
+    font-size: 30px;
+    font-weight: 700;
+  }
+  & button{
+    padding: 15px 30px;
+    border: 0;
+    background-color: #f00;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+  }
+`
