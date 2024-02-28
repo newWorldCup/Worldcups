@@ -23,6 +23,7 @@ function Profile() {
         const querySnapshot = await getDocs(q);
         const data = querySnapshot.docs.map((doc) => doc.data());
         const filterData = data.filter((item) => item.userId === userMail);
+        console.log(filterData);
         setWorldCupList(filterData);
       } catch (error) {
         console.error('Error fetching documents:', error);
@@ -34,10 +35,10 @@ function Profile() {
     }
   }, [userMail]);
 
-  const onDeleteClick = async (uid) => {
+  const onDeleteClick = async (id) => {
     try {
-      await deleteDoc(doc(db, 'worldCupList', uid));
-      setWorldCupList((prevWorldCupList) => prevWorldCupList.filter((worldCup) => worldCup.uid !== uid));
+      await deleteDoc(doc(db, 'worldCupList', id));
+      setWorldCupList((prevWorldCupList) => prevWorldCupList.filter((worldCup) => worldCup.id !== id));
     } catch (error) {
       console.error('Error deleting document:', error);
     }
@@ -56,7 +57,7 @@ function Profile() {
         </p>
       </ProfileTitle>
       {worldCupList.map((worldCup) => (
-        <ProfileWrap key={worldCup.uid}>
+        <ProfileWrap key={worldCup.id}>
           <div>
             <MyPageTitle>
               {emailRename(userMail)}님의 &nbsp;
@@ -64,7 +65,7 @@ function Profile() {
             </MyPageTitle>
           </div>
           <VideoContainer>
-            <DeleteBtn onClick={() => onDeleteClick(worldCup.uid)}>삭제하기</DeleteBtn>
+            <DeleteBtn onClick={() => onDeleteClick(worldCup.id)}>삭제하기</DeleteBtn>
             {worldCup.videoList.map((video) => (
               <div key={video.videoId}>
                 <YouTube videoId={video.videoId} />
