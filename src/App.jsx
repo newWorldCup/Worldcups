@@ -5,7 +5,8 @@ import React, { useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { setAuthState } from 'worldCupRedux/modules/authSlice';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const dispatch = useDispatch();
   const queryClient = new QueryClient();
@@ -26,6 +27,16 @@ function App() {
       <GlobalStyled />
       <QueryClientProvider client={queryClient}>
         <Router />
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          draggable
+          pauseOnHover
+        />
       </QueryClientProvider>
     </>
   );

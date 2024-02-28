@@ -7,6 +7,7 @@ import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import HeaderMargin from 'components/HeaderMargin';
+import { toast } from 'react-toastify';
 const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const Header = () => {
     //파이어베이스 로그아웃 로직
     try {
       await signOut(auth);
-      alert('로그아웃 되었습니다.');
+      toast.success('로그아웃 되었습니다.');
       navigate('/signin');
       removeHandler(`videoList${uid}`);
       removeHandler('uid');
@@ -53,6 +54,7 @@ const Header = () => {
       navigate('/');
     } catch (error) {
       console.error('로그아웃 실패', error);
+      toast.error('로그아웃 실패 다시 시도해주세요!');
     }
   };
 
