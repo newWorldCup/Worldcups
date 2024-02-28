@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import YouTube from 'react-youtube';
 import { db } from 'firebaseStore/firebaseConfig';
 import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
@@ -14,26 +13,17 @@ import {
 } from 'styles/StyledProfile';
 
 function Profile() {
-  const [userMail, setUserMail] = useState(null);
   const [worldCupList, setWorldCupList] = useState([]);
+  const userMail = JSON.parse(localStorage.getItem('email'));
 
   useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserMail(user.email);
-      } else {
-        setUserMail(null);
-      }
-    });
-
     const fetchData = async () => {
       try {
-        const q = query(collection(db, 'worldCupList'), where('userId', '==', userMail));
+        const q = query(collection(db, 'worldCupList'));
         const querySnapshot = await getDocs(q);
         const data = querySnapshot.docs.map((doc) => doc.data());
-        setWorldCupList(data);
-        console.log(data);
+        const filterData = data.filter((item) => item.userId === userMail);
+        setWorldCupList(filterData);
       } catch (error) {
         console.error('Error fetching documents:', error);
       }

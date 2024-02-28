@@ -53,7 +53,6 @@ const SearchList = () => {
     }
   }, [searchTitle.value]);
 
-  console.log(cups);
   return (
     <SearchListContainer>
       <InputDiv>

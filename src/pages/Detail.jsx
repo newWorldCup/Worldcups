@@ -20,6 +20,7 @@ const Detail = () => {
   const [round, setRound] = useState(8);
   const { id } = useParams();
   const [worldcupTitle, setWorldcupTitle] = useState('');
+
   useEffect(() => {
     const fetchItems = async () => {
       const itemRef = doc(db, 'worldCupList', id);
@@ -39,6 +40,7 @@ const Detail = () => {
     };
     fetchItems();
   }, [id]);
+
   useEffect(() => {
     // 라운드 업데이트 시 새로운 라운드 시작 (승자 배열에서 다시 뽑기)
     if (winners.length === round / 2 && round > 1) {
@@ -52,6 +54,7 @@ const Detail = () => {
       setDisplays(winners);
     }
   }, [winners, round]);
+
   const clickHandler = (selectedItem) => () => {
     const newItems = worldcupItems.filter((item) => item !== selectedItem);
     setWorldcupItems(newItems); // 선택되지 않은 아이템 제거
