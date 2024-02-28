@@ -33,7 +33,6 @@ function Profile() {
         console.error('Error fetching documents:', error);
       }
     };
-
     if (userMail) {
       fetchData();
     }

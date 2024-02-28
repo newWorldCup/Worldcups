@@ -62,7 +62,7 @@ const SignInPage = () => {
         if (error.code === 'auth/invalid-credential') {
           return alert('존재하지 않는 아이디입니다!');
         } else {
-          alert('비밀번호가 맞지 않습니다!');
+          alert('알 수 없는 오류가 생겼습니다! 아이디를 삭제하고 다시 만들어주세요!');
           console.log(error);
         }
       }
