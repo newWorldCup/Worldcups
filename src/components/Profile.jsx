@@ -21,7 +21,6 @@ function Profile() {
       try {
         const q = query(collection(db, 'worldCupList'));
         const querySnapshot = await getDocs(q);
-        const data = querySnapshot.docs.map((doc) => doc.data());
         const worldCupArr = [];
         querySnapshot.forEach((doc) => {
           const worldCup = { id: doc.id, ...doc.data() };

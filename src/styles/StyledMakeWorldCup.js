@@ -5,11 +5,15 @@ export const EntireDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  & h1 {
+    font-size: 25px;
+    font-weight: 550;
+  }
 `;
 
 export const TitleForm = styled.form`
   width: 100%;
-  height: 120px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
