@@ -12,6 +12,8 @@ const MakeWorldCup = () => {
   const [makeingWorldCup, setMakingWorldCup] = useState(false);
   const rawUid = localStorage.getItem('uid');
   const uid = rawUid ? JSON.parse(rawUid) : '';
+  const rawUserId = localStorage.getItem('email');
+  const userId = rawUserId ? JSON.parse(rawUserId) : '';
   const videoList = useSelector((state) => state.videoListSlice);
 
   const dispatch = useDispatch();
@@ -53,7 +55,7 @@ const MakeWorldCup = () => {
     <EntireDiv>
       <h1>나만의 월드컵 만들기</h1>
       <Searchvideo />
-      <NewWorldCup setMakingWorldCup={setMakingWorldCup} makeingWorldCup={makeingWorldCup} uid={uid} />
+      <NewWorldCup setMakingWorldCup={setMakingWorldCup} makeingWorldCup={makeingWorldCup} uid={uid} userId={userId} />
       <ShowVideo setMakingWorldCup={setMakingWorldCup} />
     </EntireDiv>
   );
