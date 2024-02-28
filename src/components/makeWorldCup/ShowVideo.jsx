@@ -1,9 +1,8 @@
 // import { youtubeUrl } from 'common/data';
 import YouTube from 'react-youtube';
 import { useDispatch, useSelector } from 'react-redux';
-import { SearchedListDiv, SearchedVideoDiv, StyledLink } from 'styles/StyledMakeWorldCup';
+import { SearchedListDiv, SearchedVideoDiv, YouTubeDiv } from 'styles/StyledMakeWorldCup';
 import { addVideoList } from 'worldCupRedux/modules/makeWorldCup/videoListSlice';
-import styled from 'styled-components';
 
 const ShowVideo = ({ setMakingWorldCup }) => {
   const searchList = useSelector((state) => state.searchListSlice);
@@ -26,7 +25,8 @@ const ShowVideo = ({ setMakingWorldCup }) => {
   };
 
   const opts = {
-    height: '600',
+    height: '200',
+    width: '270',
     playerVars: {
       autoplay: 0
     }
@@ -36,10 +36,6 @@ const ShowVideo = ({ setMakingWorldCup }) => {
       {searchList.length !== 0
         ? searchList.items.map((item) => (
             <SearchedVideoDiv key={item.id.videoId}>
-              {/* <StyledLink to={`${youtubeUrl}/${item.id.videoId}`}>
-                <p>{item.snippet.title}</p>
-                <img src={item.snippet.thumbnails.default.url} alt="영상 이미지" />
-              </StyledLink> */}
               <YouTubeDiv>
                 <p>{item.snippet.title}</p>
                 <YouTube videoId={item.id.videoId} opts={opts} />
@@ -60,22 +56,3 @@ const ShowVideo = ({ setMakingWorldCup }) => {
 };
 
 export default ShowVideo;
-
-const YouTubeDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 250px;
-  height: 270px;
-  color: inherit;
-  &:hover {
-    color: #52606d;
-  }
-  & p {
-    height: 40px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-`;
