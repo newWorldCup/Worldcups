@@ -59,6 +59,7 @@ const SignInPage = () => {
         localStorage.setItem('nickname', JSON.stringify(userSnap.data().nickname));
         localStorage.setItem('uid', JSON.stringify(signIn.user.uid));
         localStorage.setItem('token', JSON.stringify(signIn.user.accessToken));
+        toast.success('로그인에 성공했습니다!');
         navigate('/', { replace: true });
       } catch (error) {
         if (error.code === 'auth/invalid-credential') {
