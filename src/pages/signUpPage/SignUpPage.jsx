@@ -61,6 +61,7 @@ const SignUpPage = () => {
           email: email.value,
           nickname: nickname.value
         });
+        toast.success('회원가입에 성공했습니다!');
         await signOut(auth);
         navigate('/signin');
       } catch (error) {
