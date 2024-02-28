@@ -5,6 +5,7 @@ import { resetSearchList } from 'worldCupRedux/modules/makeWorldCup/searchListSl
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { WorldCupTitleForm, MakeWorldCupDiv, CandidatesvideosDiv } from 'styles/StyledMakeWorldCup';
 import { renewVideoList } from 'worldCupRedux/modules/makeWorldCup/videoListSlice';
+import { toast } from 'react-toastify';
 
 const NewWorldCup = ({ makeingWorldCup, uid, userId }) => {
   const [worldCupTitle, setWorldCupTitle] = useState('');
@@ -25,17 +26,23 @@ const NewWorldCup = ({ makeingWorldCup, uid, userId }) => {
   };
 
   const cancelAddvideo = (id) => {
-    const restList = videoList.filter((video) => video.videoId !== id);
-    dispatch(renewVideoList(restList));
+    const cancelConfirm = window.confirm('삭제하시겠습니까?');
+    if (cancelConfirm) {
+      const restList = videoList.filter((video) => video.videoId !== id);
+      dispatch(renewVideoList(restList));
+      toast.success('삭제되었습니다');
+    } else {
+      toast.error('삭제가 취소 되었습니다');
+    }
   };
 
   const worldCupHandler = () => {
     if (!worldCupTitle) {
-      alert('월드컵 이름을 작성해주세요');
+      toast.error('월드컵 이름을 작성해주세요');
     } else if (videoList.length === 0) {
-      alert('후보가 될 영상들을 추가해주세요');
+      toast.error('후보가 될 영상들을 추가해주세요');
     } else if (videoList.length < 8) {
-      alert('후보영상은 최소 8개여야 합니다.');
+      toast.error('후보영상은 최소 8개여야 합니다.');
     } else {
       const newWorldCup = {
         uid,
@@ -44,7 +51,7 @@ const NewWorldCup = ({ makeingWorldCup, uid, userId }) => {
         createdAt: String(new Date()),
         videoList
       };
-      alert('월드컵 완성! 월드컵 리스트에서 확인하세요:)');
+      toast.success('월드컵 완성! 월드컵 리스트에서 확인하세요:)');
       setWorldCupTitle('');
       dispatch(resetSearchList());
       mutateToAdd(newWorldCup);

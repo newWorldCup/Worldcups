@@ -13,6 +13,7 @@ import {
   VideoTitle
 } from 'styles/StyledProfile';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Profile() {
   const [worldCupList, setWorldCupList] = useState([]);
@@ -46,6 +47,9 @@ function Profile() {
       if (deleteConfirm) {
         await deleteDoc(doc(db, 'worldCupList', id));
         setWorldCupList((prevWorldCupList) => prevWorldCupList.filter((worldCup) => worldCup.id !== id));
+        toast.success('삭제되었습니다');
+      } else {
+        toast.error('삭제가 취소되었습니다.');
       }
     } catch (error) {
       console.error('Error deleting document:', error);
@@ -59,13 +63,13 @@ function Profile() {
 
   return (
     <>
+      <ProfileTitle>
+        <p>
+          {emailRename(userMail)}님의 <MainColorSpan>WorldCupList</MainColorSpan>
+        </p>
+      </ProfileTitle>
       {worldCupList.length === 0 ? (
         <>
-          <ProfileTitle>
-            <p>
-              {emailRename(userMail)}님의 <MainColorSpan>WorldCupList</MainColorSpan>
-            </p>
-          </ProfileTitle>
           <MakeWrap>
             <p>월드컵을 만들어 주세요!</p>
             <button onClick={() => navigator('/makeWorldCup')}>New WorldCup Make here</button>
@@ -73,11 +77,6 @@ function Profile() {
         </>
       ) : (
         <>
-          <ProfileTitle>
-            <p>
-              {emailRename(userMail)}님의 <MainColorSpan>WorldCupList</MainColorSpan>
-            </p>
-          </ProfileTitle>
           {worldCupList?.map((worldCup) => (
             <ProfileWrap key={worldCup.id}>
               <div>
