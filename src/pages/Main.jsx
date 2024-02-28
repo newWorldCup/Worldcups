@@ -2,7 +2,6 @@ import React from 'react';
 import SearchList from 'components/HomeComponents/SearchList';
 import { BodyDiv } from 'styles/StyledMain';
 import Video from './Video';
-import { useState } from 'react';
 
 const Main = () => {
   return (
