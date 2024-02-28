@@ -137,49 +137,48 @@ export const SearchedListDiv = styled.div`
 
 export const SearchedVideoDiv = styled.div`
   gap: 10px;
-  width: 250px;
-  height: 320px;
+  width: 320px;
+  height: 330px;
   display: flex;
   align-items: center;
   flex-direction: column;
   border-radius: 8px;
-  border: 2px solid #bfbfbf;
-  background-color: #dcdcde;
-  margin-top: 10px;
-  padding: 0px 10px 10px 10px;
+  margin: 10px 0;
+  padding: 10px 10px 10px 10px;
   & button {
     width: 200px;
     height: 40px;
     font-size: 16px;
-    color: #3e4c59;
-    border: solid 3px #bfbfbf;
+    color: white;
+    background-color: var(--main-color);
+    border: none;
     border-radius: 5px;
+    margin: 5px 0;
+    padding: 8px 0;
     cursor: pointer;
     &:hover {
-      background-color: #bfbfbf;
+      background-color: #dcdcde;
     }
   }
 `;
-
-export const StyledLink = styled(Link)`
+export const YouTubeDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 250px;
-  height: 270px;
+  height: 300px;
   color: inherit;
+  gap: 10px;
   &:hover {
     color: #52606d;
   }
   & p {
+    text-align: center;
+    line-height: 1.3;
     height: 40px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-  }
-  & img {
-    border-radius: 5px;
-    height: 188px;
   }
 `;
