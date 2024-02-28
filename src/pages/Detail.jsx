@@ -55,20 +55,32 @@ const Detail = () => {
   }, [winners, round]);
 
   const clickHandler = (selectedItem) => () => {
-    const newItems = worldcupItems.filter((item) => item !== selectedItem);
-    setWorldcupItems(newItems); // 선택되지 않은 아이템 제거
-    console.log('선택된 아이템 제거', newItems);
-    if (newItems.length === 1 && round > 2) {
-      // 마지막 아이템이고 아직 결승전이 아닌 경우
-      setWinners((prevWinners) => [...prevWinners, selectedItem]);
-    } else if (round === 2 || (round === 1 && newItems.length === 0)) {
-      // 4강 또는 결승
-      setWinners((prevWinners) => [...prevWinners, selectedItem]);
-    } else {
-      // 다음 표시될 두 아이템 설정
+    const newWinners = [...winners, selectedItem]; // 승자 배열에 선택된 아이템 추가
+
+    // worldcupItems에서 현재 displays에 나타난 두 아이템을 모두 제거 <<중요
+    const newItems = worldcupItems.filter(
+      (item) => item.videoId !== displays[0].videoId && item.videoId !== displays[1].videoId
+    );
+
+    setWorldcupItems(newItems);
+    setWinners(newWinners);
+
+    // 다음 경기 세팅
+    if (newWinners.length < round / 2) {
       setDisplays(newItems.slice(0, 2));
+    } else {
+      // 현재 라운드가 끝나면
+      if (round > 2) {
+        // 다음 라운드로
+        setDisplays([]);
+        setWinners(newWinners);
+      } else {
+        // 최종 우승자 선언
+        setDisplays([]);
+      }
     }
   };
+
   /** react-youtube 옵션 설정 */
   const opts = {
     height: '600',
@@ -79,6 +91,7 @@ const Detail = () => {
   return (
     <WorldcupGame>
       <WorldcupTitle>{worldcupTitle}</WorldcupTitle>
+      <p>{round}강입니다.</p>
       <WorldcupVideoList>
         {displays.map((video) => (
           <WorldcupVideo key={video.videoId}>
