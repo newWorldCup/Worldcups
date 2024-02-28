@@ -80,7 +80,7 @@ const SignUpPage = () => {
           name="password"
           value={password.value}
           onChange={password.onChange} //커스텀훅으로 핸들러를 대신함
-          placeholder="비밀번호(6~15글자)"
+          placeholder="비밀번호(6~15글자),최소 하나의 특수문자,문자,숫자"
           minLength={6}
           maxLength={15}
         ></StyledInput>
