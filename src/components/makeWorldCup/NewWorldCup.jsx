@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addWorldCup } from 'api/queryFns';
 import { resetSearchList } from 'worldCupRedux/modules/makeWorldCup/searchListSlice';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { WorldCupTitleForm, MakeWorldCupDiv, CandidatesvideosDiv } from 'styles/StyledMakeWorldCup';
+import {
+  WorldCupTitleForm,
+  MakeWorldCupDiv,
+  CandidateTitle,
+  CandidatesBodyDiv,
+  CandidatesvideosDiv
+} from 'styles/StyledMakeWorldCup';
 import { renewVideoList } from 'worldCupRedux/modules/makeWorldCup/videoListSlice';
 import { toast } from 'react-toastify';
 
@@ -36,13 +42,19 @@ const NewWorldCup = ({ makeingWorldCup, uid, userId }) => {
     }
   };
 
+  const removeAllVideo = () => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      dispatch(renewVideoList([]));
+    }
+  };
+
   const worldCupHandler = () => {
     if (!worldCupTitle) {
       toast.error('월드컵 이름을 작성해주세요');
     } else if (videoList.length === 0) {
       toast.error('후보가 될 영상들을 추가해주세요');
-    } else if (videoList.length < 8) {
-      toast.error('후보영상은 최소 8개여야 합니다.');
+    } else if (videoList.length < 8 || videoList.length > 8) {
+      toast.error('후보영상은 8개여야 합니다.');
     } else {
       const newWorldCup = {
         uid,
@@ -54,6 +66,7 @@ const NewWorldCup = ({ makeingWorldCup, uid, userId }) => {
       toast.success('월드컵 완성! 월드컵 리스트에서 확인하세요:)');
       setWorldCupTitle('');
       dispatch(resetSearchList());
+      dispatch(renewVideoList([]));
       mutateToAdd(newWorldCup);
       localStorage.removeItem(`videoList${uid}`);
     }
@@ -71,15 +84,19 @@ const NewWorldCup = ({ makeingWorldCup, uid, userId }) => {
             <button onClick={worldCupHandler}>월드컵 완성</button>
           </WorldCupTitleForm>
           <CandidatesvideosDiv>
-            <p>Candidates</p>
-            <div>
+            <CandidateTitle>
+              <p>Candidates</p>
+              <button onClick={removeAllVideo}>전체삭제</button>
+            </CandidateTitle>
+
+            <CandidatesBodyDiv>
               {videoList.map((video) => (
                 <div key={video.videoId}>
                   <button onClick={() => cancelAddvideo(video.videoId)}>x</button>
                   <img src={video.thumbNailUrl} alt="추가된 영상 썸네일" key={video.videoId} />
                 </div>
               ))}
-            </div>
+            </CandidatesBodyDiv>
           </CandidatesvideosDiv>
         </MakeWorldCupDiv>
       ) : null}
