@@ -88,4 +88,14 @@ export const StyledSocialBtn = styled.button`
   background-size: cover;
   background-position: center;
   background-image: ${({ $imageUrl }) => `url(${$imageUrl})`};
+  &:hover {
+    cursor: pointer;
+  }
+`;
+export const StyledLoaing = styled.div`
+  width: 100%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

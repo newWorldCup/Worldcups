@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   StyledSignUi,
   StyledSocialBtns,
@@ -7,18 +7,20 @@ import {
   StyledButtons,
   StyledBtn,
   StyledInput,
-  StyledP
+  StyledP,
+  StyledLoaing
 } from 'styles/StyledSign';
 import useFormInput from 'components/common/useFormInput';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from 'firebaseStore/firebaseConfig';
-import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 const SignUpPage = () => {
   const email = useFormInput(''); //커스텀훅value 자리에 email이 들어갑니다
   const password = useFormInput(''); //커스텀훅value 자리에 password 들어갑니다
   const nickname = useFormInput('');
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -30,12 +32,25 @@ const SignUpPage = () => {
       alert('아이디와 비밀번호,닉네임을 모두 입력하세요');
       return false;
     }
+    // 이메일 유효성 검사 강화
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(email.value)) {
+      alert('유효하지 않은 이메일 형식입니다.');
+      return false;
+    }
+    //비밀번호 유효성 검사 강화
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,15}$/;
+    if (!passwordRegex.test(password.value)) {
+      alert('비밀번호는 6~15글자이며,최소 하나의 문자,숫자,특수문자를 포함해야 합니다!');
+      return false;
+    }
     return true;
   };
   //firebase api 회원가입 연결
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (inputValidate()) {
+      setIsLoading(true);
       try {
         const signUp = await createUserWithEmailAndPassword(auth, email.value, password.value);
         const user = signUp.user;
@@ -43,7 +58,7 @@ const SignUpPage = () => {
           email: email.value,
           nickname: nickname.value
         });
-        alert('회원가입에 성공했습니다!');
+        await signOut(auth);
         navigate('/signin');
       } catch (error) {
         console.log('회원가입 에러', error);
@@ -52,9 +67,14 @@ const SignUpPage = () => {
         } else {
           alert('회원가입 중 오류가 발생했습니다.');
         }
+      } finally {
+        setIsLoading(false);
       }
     }
   };
+  if (isLoading) {
+    return <StyledLoaing>...회원가입 처리중입니다...</StyledLoaing>;
+  }
 
   return (
     <StyledSignUi onSubmit={onSubmitHandler}>
@@ -74,7 +94,7 @@ const SignUpPage = () => {
           name="password"
           value={password.value}
           onChange={password.onChange} //커스텀훅으로 핸들러를 대신함
-          placeholder="비밀번호(6~15글자)"
+          placeholder="비밀번호(6~15글자),최소 하나의 특수문자,문자,숫자가 들어가야합니다."
           minLength={6}
           maxLength={15}
         ></StyledInput>
