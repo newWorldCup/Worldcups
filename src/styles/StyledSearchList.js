@@ -47,7 +47,7 @@ export const ContentDiv = styled.div`
 export const BoxContentDiv = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 export const BoxDiv = styled.div`
@@ -65,13 +65,16 @@ export const BoxDiv = styled.div`
 `;
 
 export const InfoDiv = styled.div`
-  font-size: 30px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   margin-top: 10px;
-  color: gray;
   p {
+    font-size: 16px;
+    color: var(--sub-color-lightgrey);
+  }
+  h3 {
     font-size: 20px;
+    color: black;
   }
 `;
