@@ -59,13 +59,13 @@ function Profile() {
 
   return (
     <>
+      <ProfileTitle>
+        <p>
+          {emailRename(userMail)}님의 <MainColorSpan>WorldCupList</MainColorSpan>
+        </p>
+      </ProfileTitle>
       {worldCupList.length === 0 ? (
         <>
-          <ProfileTitle>
-            <p>
-              {emailRename(userMail)}님의 <MainColorSpan>WorldCupList</MainColorSpan>
-            </p>
-          </ProfileTitle>
           <MakeWrap>
             <p>월드컵을 만들어 주세요!</p>
             <button onClick={() => navigator('/makeWorldCup')}>New WorldCup Make here</button>
@@ -73,11 +73,6 @@ function Profile() {
         </>
       ) : (
         <>
-          <ProfileTitle>
-            <p>
-              {emailRename(userMail)}님의 <MainColorSpan>WorldCupList</MainColorSpan>
-            </p>
-          </ProfileTitle>
           {worldCupList?.map((worldCup) => (
             <ProfileWrap key={worldCup.id}>
               <div>
