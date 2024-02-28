@@ -99,7 +99,7 @@ export const CandidatesvideosDiv = styled.div`
   max-width: 1400px;
   color: #52606d;
   display: flex;
-  overflow-x: auto;
+
   flex-direction: column;
   justify-content: space-evenly;
 `;
@@ -125,13 +125,17 @@ export const CandidateTitle = styled.div`
 `;
 
 export const CandidatesBodyDiv = styled.div`
+  overflow-x: auto;
+  width: 1400px;
+  display: flex;
+
   & div {
     height: 130px;
     display: flex;
     align-items: center;
     flex-direction: row;
     max-height: 200px;
-    margin-right: 30px;
+    margin-right: 15px;
 
     & button {
       width: 20px;
