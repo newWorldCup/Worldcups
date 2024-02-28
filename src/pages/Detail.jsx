@@ -61,7 +61,7 @@ const Detail = () => {
   const clickHandler = (selectedItem) => () => {
     const newItems = worldcupItems.filter((item) => item !== selectedItem);
     setWorldcupItems(newItems); // 선택되지 않은 아이템 제거
-
+    console.log(worldcupItems);
     console.log('선택된 아이템 제거', newItems);
 
     if (newItems.length === 1 && round > 2) {
