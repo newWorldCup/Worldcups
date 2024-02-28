@@ -1,7 +1,7 @@
 
 # My Worldcup : 월드컵 만들기 페이지
 
-- 배포 URL :
+- 배포 URL : https://myworldcup-fawn.vercel.app/
 - Test ID : test@test.com
 - Test PW : testtest
 
@@ -49,7 +49,7 @@ yarn start
 
 ### 금상호
 
-- 전체 UI 디자인, 리뷰페이지 제작, 도서 검색 기능, 리뷰 작성 기능, 버튼 및 모달 등 공통컴포넌트 구현
+- 
 
 ### 조성준
 
