@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setAuthState } from 'worldCupRedux/modules/authSlice';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   const dispatch = useDispatch();
   const queryClient = new QueryClient();
