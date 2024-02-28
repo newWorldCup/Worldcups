@@ -20,15 +20,12 @@ const Detail = () => {
   const [round, setRound] = useState(8);
   const { id } = useParams();
   const [worldcupTitle, setWorldcupTitle] = useState('');
-
   useEffect(() => {
     const fetchItems = async () => {
       const itemRef = doc(db, 'worldCupList', id);
       // 문서 ID는 자동으로 생성된 부분이라 나중에 리스트에서 클릭한 문서의 ID를 가져올 수 있도록 변경해야함
       const docData = await getDoc(itemRef);
-
       console.log('데이터', docData);
-
       if (docData.exists()) {
         let videoList = docData.data().videoList;
         let worldcupGameTitle = docData.data().worldCupTitle;
@@ -40,10 +37,8 @@ const Detail = () => {
         console.log('월드컵 리스트를 불러오는데 실패했습니다!');
       }
     };
-
     fetchItems();
   }, [id]);
-
   useEffect(() => {
     // 라운드 업데이트 시 새로운 라운드 시작 (승자 배열에서 다시 뽑기)
     if (winners.length === round / 2 && round > 1) {
@@ -57,13 +52,10 @@ const Detail = () => {
       setDisplays(winners);
     }
   }, [winners, round]);
-
   const clickHandler = (selectedItem) => () => {
     const newItems = worldcupItems.filter((item) => item !== selectedItem);
     setWorldcupItems(newItems); // 선택되지 않은 아이템 제거
-
     console.log('선택된 아이템 제거', newItems);
-
     if (newItems.length === 1 && round > 2) {
       // 마지막 아이템이고 아직 결승전이 아닌 경우
       setWinners((prevWinners) => [...prevWinners, selectedItem]);
@@ -75,7 +67,6 @@ const Detail = () => {
       setDisplays(newItems.slice(0, 2));
     }
   };
-
   /** react-youtube 옵션 설정 */
   const opts = {
     height: '600',
@@ -83,7 +74,6 @@ const Detail = () => {
       autoplay: 0
     }
   };
-
   return (
     <WorldcupGame>
       <WorldcupTitle>{worldcupTitle}</WorldcupTitle>
