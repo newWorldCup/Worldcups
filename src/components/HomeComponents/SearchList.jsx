@@ -9,7 +9,6 @@ import {
   InputDiv,
   SearchInput,
   BoxContentDiv,
-  SemiContentDiv,
   ContentDiv,
   BoxDiv,
   InfoDiv
@@ -19,7 +18,6 @@ const SearchList = () => {
   const navigate = useNavigate();
   const [cups, setCups] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  // const [searchTitle.value, setSearchTitle] = useState('');
   const searchTitle = useFormInput('');
 
   useEffect(() => {
@@ -29,7 +27,6 @@ const SearchList = () => {
       const querySnapshot = await getDocs(q);
 
       const initialWorldCupList = [];
-      console.log(querySnapshot);
       querySnapshot.forEach((doc) => {
         const data = {
           id: doc.id,
