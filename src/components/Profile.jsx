@@ -22,8 +22,12 @@ function Profile() {
         const q = query(collection(db, 'worldCupList'));
         const querySnapshot = await getDocs(q);
         const data = querySnapshot.docs.map((doc) => doc.data());
-        const filterData = data.filter((item) => item.userId === userMail);
-        console.log(filterData);
+        const worldCupArr = [];
+        querySnapshot.forEach((doc) => {
+          const worldCup = { id: doc.id, ...doc.data() };
+          worldCupArr.push(worldCup);
+        });
+        const filterData = worldCupArr.filter((item) => item.userId === userMail);
         setWorldCupList(filterData);
       } catch (error) {
         console.error('Error fetching documents:', error);
@@ -56,7 +60,7 @@ function Profile() {
           {emailRename(userMail)}님의 <MainColorSpan>WorldCupList</MainColorSpan>
         </p>
       </ProfileTitle>
-      {worldCupList.map((worldCup) => (
+      {worldCupList?.map((worldCup) => (
         <ProfileWrap key={worldCup.id}>
           <div>
             <MyPageTitle>
