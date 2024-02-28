@@ -26,8 +26,14 @@ const NewWorldCup = ({ makeingWorldCup, uid, userId }) => {
   };
 
   const cancelAddvideo = (id) => {
-    const restList = videoList.filter((video) => video.videoId !== id);
-    dispatch(renewVideoList(restList));
+    const cancelConfirm = window.confirm('삭제하시겠습니까?');
+    if (cancelConfirm) {
+      const restList = videoList.filter((video) => video.videoId !== id);
+      dispatch(renewVideoList(restList));
+      toast.success('삭제되었습니다');
+    } else {
+      toast.error('삭제가 취소 되었습니다');
+    }
   };
 
   const worldCupHandler = () => {

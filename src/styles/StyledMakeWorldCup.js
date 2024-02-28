@@ -100,24 +100,30 @@ export const CandidatesvideosDiv = styled.div`
   color: #52606d;
   display: flex;
   flex-direction: column;
+  
   & p {
     margin-left: 20px;
     font-weight: 550;
     font-size: 20px;
   }
   & div {
-    width: 1400px;
+    /* width: 100%; */
     height: 130px;
     display: flex;
     align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 10px;
     max-height: 200px;
     overflow-y: auto;
+    margin-right: 30px;
     & button {
       width: 20px;
       margin: 0px;
+      margin-right: 15px;
+      background-color: #f00;
+      color:white;
+      border: 0;
+      padding: 3px 5px;
     }
   }
   & div > img {
