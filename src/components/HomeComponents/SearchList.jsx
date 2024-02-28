@@ -9,7 +9,6 @@ import {
   InputDiv,
   SearchInput,
   BoxContentDiv,
-  SemiContentDiv,
   ContentDiv,
   BoxDiv,
   InfoDiv
