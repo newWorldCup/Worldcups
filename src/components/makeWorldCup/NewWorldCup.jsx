@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { WorldCupTitleForm, MakeWorldCupDiv, CandidatesvideosDiv } from 'styles/StyledMakeWorldCup';
 import { renewVideoList } from 'worldCupRedux/modules/makeWorldCup/videoListSlice';
 
-const NewWorldCup = ({ makeingWorldCup, uid }) => {
+const NewWorldCup = ({ makeingWorldCup, uid, userId }) => {
   const [worldCupTitle, setWorldCupTitle] = useState('');
   const videoList = useSelector((state) => state.videoListSlice);
   const dispatch = useDispatch();
@@ -34,10 +34,12 @@ const NewWorldCup = ({ makeingWorldCup, uid }) => {
       alert('월드컵 이름을 작성해주세요');
     } else if (videoList.length === 0) {
       alert('후보가 될 영상들을 추가해주세요');
+    } else if (videoList.length < 8) {
+      alert('후보영상은 최소 8개여야 합니다.');
     } else {
       const newWorldCup = {
         uid,
-        userId: '추가예정',
+        userId,
         worldCupTitle,
         createdAt: String(new Date()),
         videoList
