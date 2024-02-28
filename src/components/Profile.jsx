@@ -59,7 +59,7 @@ function Profile() {
 
   return (
     <>
-      {worldCupList.length <= 0 ? (
+      {worldCupList.length === 0 ? (
         <>
           <ProfileTitle>
             <p>
