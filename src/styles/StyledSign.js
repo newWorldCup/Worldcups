@@ -92,3 +92,10 @@ export const StyledSocialBtn = styled.button`
     cursor: pointer;
   }
 `;
+export const StyledLoaing = styled.div`
+  width: 100%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
