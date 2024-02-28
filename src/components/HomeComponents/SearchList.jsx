@@ -55,7 +55,11 @@ const SearchList = () => {
       <InputDiv>
         {' '}
         검색
-        <SearchInput placeholder="제목을 입력해 주세요." value={searchTitle.value} onChange={searchTitle.onChange} />
+        <SearchInput
+          placeholder="원하는 월드컵을 검색해보세요!"
+          value={searchTitle.value}
+          onChange={searchTitle.onChange}
+        />
       </InputDiv>
       <ContentDiv>
         {searchTitle.value === ''

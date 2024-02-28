@@ -8,6 +8,7 @@ export const SearchListContainer = styled.div`
 export const InputDiv = styled.div`
   color: red;
   margin: 20px 0px 50px 0px;
+  size: 50px;
   font-size: 30px;
 `;
 
@@ -16,6 +17,7 @@ export const SearchInput = styled.input`
   padding: 10px 15px;
   border: 3px solid black;
   border-radius: 5px;
+  width: 500px;
   margin-left: 10px;
 `;
 
