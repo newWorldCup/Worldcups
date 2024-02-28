@@ -13,6 +13,7 @@ import {
   VideoTitle
 } from 'styles/StyledProfile';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Profile() {
   const [worldCupList, setWorldCupList] = useState([]);
@@ -46,6 +47,9 @@ function Profile() {
       if (deleteConfirm) {
         await deleteDoc(doc(db, 'worldCupList', id));
         setWorldCupList((prevWorldCupList) => prevWorldCupList.filter((worldCup) => worldCup.id !== id));
+        toast.success('삭제되었습니다');
+      } else {
+        toast.error('삭제가 취소되었습니다.');
       }
     } catch (error) {
       console.error('Error deleting document:', error);

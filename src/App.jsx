@@ -5,6 +5,8 @@ import React, { useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { setAuthState } from 'worldCupRedux/modules/authSlice';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ function App() {
       <GlobalStyled />
       <QueryClientProvider client={queryClient}>
         <Router />
+        <ToastContainer />
       </QueryClientProvider>
     </>
   );
