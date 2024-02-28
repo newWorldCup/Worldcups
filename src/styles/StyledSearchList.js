@@ -6,6 +6,7 @@ export const SearchListContainer = styled.div`
 `;
 
 export const InputDiv = styled.div`
+  color: red;
   margin: 20px 0px 50px 0px;
   font-size: 30px;
 `;
@@ -61,7 +62,7 @@ export const InfoDiv = styled.div`
   flex-direction: column;
   gap: 10px;
   margin-top: 10px;
-  color: black;
+  color: gray;
   p {
     font-size: 20px;
   }
