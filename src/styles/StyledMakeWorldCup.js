@@ -5,6 +5,7 @@ export const EntireDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 30px 0;
   & h1 {
     font-size: 25px;
     font-weight: 550;
@@ -22,6 +23,7 @@ export const TitleForm = styled.form`
     width: 350px;
     height: 40px;
     border: 3px solid #bfbfbf;
+    padding-left: 10px;
   }
   & input:focus {
     outline: none;

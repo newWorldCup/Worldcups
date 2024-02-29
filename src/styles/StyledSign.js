@@ -50,7 +50,6 @@ export const StyledBtn = styled.button`
   background-color: black;
   padding: 10px;
   width: 200px;
-  height: 50px;
   color: white;
   font-size: 30px;
   margin-bottom: 20px;
@@ -68,8 +67,10 @@ export const StyledInput = styled.input`
 `;
 export const StyledP = styled.p`
   user-select: none;
+  margin-bottom: 20px;
   &:hover {
     cursor: pointer;
+    color: var(--main-color);
   }
 `;
 
